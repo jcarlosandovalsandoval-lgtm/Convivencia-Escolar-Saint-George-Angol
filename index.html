@@ -89,7 +89,7 @@ h1{font-size:29px;letter-spacing:-.9px}.subtitle{font-size:13px}
     <div class="login-brand"><img class="school-badge" src="colegio-insignia.jpeg" alt="Insignia del Colegio Saint George Angol"><div><strong>Programación convivencia escolar</strong><small>Colegio Saint George Angol</small></div></div>
     <h1>Iniciar sesión</h1><p>Ingresa tus credenciales para continuar.</p>
     <form class="login-form" id="loginForm">
-      <div class="form-group"><label for="loginUser">Usuario</label><input id="loginUser" name="username" autocomplete="username" required autofocus></div>
+      <div class="form-group"><label for="loginUser">Correo electrónico</label><input id="loginUser" name="email" type="email" autocomplete="username" required autofocus></div>
       <div class="form-group"><label for="loginPassword">Contraseña</label><input id="loginPassword" name="password" type="password" autocomplete="current-password" required></div>
       <div class="login-error" id="loginError" role="alert" aria-live="polite"></div>
       <button class="btn primary" type="submit">Entrar</button>
@@ -184,8 +184,15 @@ h1{font-size:29px;letter-spacing:-.9px}.subtitle{font-size:13px}
 <div class="modal-backdrop" id="modalBackdrop"><div class="modal"><div class="modal-head"><h2 id="modalTitle">Nueva tarea</h2><button class="close" id="modalClose">×</button></div><form id="entityForm"><div class="form-grid" id="formFields"></div><div class="modal-actions"><button type="button" class="btn" id="modalCancel">Cancelar</button><button class="btn primary" type="submit">Guardar</button></div></form></div></div>
 <div class="alert-backdrop" id="scheduleAlert" role="alertdialog" aria-modal="true" aria-labelledby="scheduleAlertTitle" aria-describedby="scheduleAlertBody"><section class="schedule-alert"><div class="alert-icon" aria-hidden="true">✓</div><h2 id="scheduleAlertTitle">Quedó programado</h2><p id="scheduleAlertBody"></p><div class="alert-date" id="scheduleAlertDate"></div><button class="btn primary" id="scheduleAlertClose" type="button">Entendido</button></section></div>
 <div class="toast" id="toast"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const STORAGE_KEY='nexus_convivencia_escolar_v1';
+// Completa estos valores con Project URL y Publishable key de tu proyecto Supabase.
+const SUPABASE_URL='https://vwxzoqwhmwmutpovesqu.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY='sb_publishable_SPlRuAO6Axic1IGI2RePaA_nRPHH2Ei';
+const cloudReady=SUPABASE_URL.startsWith('https://')&&!SUPABASE_PUBLISHABLE_KEY.startsWith('PEGA_');
+const cloud=cloudReady?window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY):null;
+let cloudSyncChannel=null;
 const today=new Date(); today.setHours(0,0,0,0);
 const iso=(d)=>{const x=new Date(d);return `${x.getFullYear()}-${String(x.getMonth()+1).padStart(2,'0')}-${String(x.getDate()).padStart(2,'0')}`};
 const addDays=(n)=>{let d=new Date(today);d.setDate(d.getDate()+n);return iso(d)};
@@ -196,17 +203,15 @@ const uid=(prefix)=>prefix+'-'+Math.random().toString(36).slice(2,7).toUpperCase
 const defaultData=()=>({people:[],projects:[],tasks:[],milestones:[]});
 let data;
 try{data=JSON.parse(localStorage.getItem(STORAGE_KEY))||defaultData()}catch(e){data=defaultData()}
-const AUTH_SESSION_KEY='convivencia_session';
-if(sessionStorage.getItem(AUTH_SESSION_KEY)==='active')document.body.classList.add('authenticated');
-document.getElementById('loginForm').addEventListener('submit',e=>{
- e.preventDefault();
- const username=document.getElementById('loginUser').value.trim().normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
- const password=document.getElementById('loginPassword').value;
- if(username==='convivencia escolar'&&password==='colegio saint george'){
-  sessionStorage.setItem(AUTH_SESSION_KEY,'active');document.body.classList.add('authenticated');document.getElementById('loginError').textContent='';
- }else{document.getElementById('loginError').textContent='Usuario o contraseña incorrectos.';document.getElementById('loginPassword').value='';document.getElementById('loginPassword').focus()}
+document.getElementById('loginForm').addEventListener('submit',async e=>{
+ e.preventDefault();const error=document.getElementById('loginError');
+ if(!cloud){error.textContent='Falta configurar Supabase en index.html. Sigue las instrucciones de README.md.';return}
+ const email=document.getElementById('loginUser').value.trim(),password=document.getElementById('loginPassword').value;
+ const {error:loginError}=await cloud.auth.signInWithPassword({email,password});
+ if(loginError){error.textContent='No se pudo iniciar sesión. Revisa el correo y la contraseña de Supabase.';document.getElementById('loginPassword').value='';return}
+ try{await loadCloudData();startCloudSync();document.body.classList.add('authenticated');error.textContent=''}catch(err){await cloud.auth.signOut();error.textContent='No se pudieron cargar los datos compartidos: '+err.message}
 });
-document.getElementById('logoutBtn').addEventListener('click',()=>{sessionStorage.removeItem(AUTH_SESSION_KEY);document.body.classList.remove('authenticated');document.getElementById('loginForm').reset();document.getElementById('loginUser').focus()});
+document.getElementById('logoutBtn').addEventListener('click',async()=>{if(cloud){if(cloudSyncChannel)await cloud.removeChannel(cloudSyncChannel);cloudSyncChannel=null;await cloud.auth.signOut()}document.body.classList.remove('authenticated');document.getElementById('loginForm').reset();document.getElementById('loginUser').focus()});
 let currentView='dashboard', editing=null, formType=null;
 const $=id=>document.getElementById(id);
 const statusClass=s=>({'Completada':'green','Completado':'green','En curso':'blue','En revisión':'amber','En riesgo':'red','Pendiente':'gray','Activo':'green','Planificación':'blue'}[s]||'gray');
@@ -215,7 +220,20 @@ const person=id=>data.people.find(p=>p.id===id);
 const project=id=>data.projects.find(p=>p.id===id);
 const personName=id=>person(id)?.name||'Sin asignar';
 const projectName=id=>id?(project(id)?.name||'Proyecto eliminado'):'Sin proyecto';
-const save=()=>{localStorage.setItem(STORAGE_KEY,JSON.stringify(data));renderAll()};
+const save=()=>{localStorage.setItem(STORAGE_KEY,JSON.stringify(data));renderAll();if(cloud)cloud.from('shared_app_data').upsert({id:'school',payload:data,updated_at:new Date().toISOString()}).then(({error})=>{if(error)toast('Guardado localmente; falló la sincronización: '+error.message)})};
+async function loadCloudData(){
+ const {data:row,error}=await cloud.from('shared_app_data').select('payload').eq('id','school').maybeSingle();
+ if(error)throw error;
+ if(row?.payload){data=row.payload;localStorage.setItem(STORAGE_KEY,JSON.stringify(data))}
+ else{const local=JSON.parse(localStorage.getItem(STORAGE_KEY)||'null');data=local||defaultData();const {error:saveError}=await cloud.from('shared_app_data').insert({id:'school',payload:data});if(saveError)throw saveError}
+ renderAll();
+}
+function startCloudSync(){
+ if(cloudSyncChannel)return;
+ cloudSyncChannel=cloud.channel('school-data-sync').on('postgres_changes',{event:'*',schema:'public',table:'shared_app_data',filter:'id=eq.school'},event=>{
+  if(event.new?.payload){data=event.new.payload;localStorage.setItem(STORAGE_KEY,JSON.stringify(data));renderAll()}
+ }).subscribe();
+}
 function toast(msg){$('toast').textContent=msg;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),2600)}
 function showScheduleAlert(title,date,kind){
  const sameDay=data.tasks.filter(t=>t.due===date&&t.status!=='Completada');
@@ -367,7 +385,13 @@ function agentAnswer(q){
  return 'Puedo consultar el resumen de proyectos, las tareas atrasadas, los hitos próximos y la carga asignada. También puedo sugerir una estructura de planificación. Para acciones automáticas y razonamiento avanzado se debe conectar un servicio de IA mediante un backend seguro.';
 }
 $('chatForm').onsubmit=e=>{e.preventDefault();let q=$('chatInput').value.trim();if(!q)return;let u=document.createElement('div');u.className='bubble user';u.textContent=q;$('chatMessages').appendChild(u);$('chatInput').value='';let a=document.createElement('div');a.className='bubble ai';a.innerHTML='<strong>✧ Project Agent</strong>'+agentAnswer(q);$('chatMessages').appendChild(a);$('chatMessages').scrollTop=$('chatMessages').scrollHeight};
-renderAll();
+if(cloud){
+ cloud.auth.getSession().then(async({data:sessionData})=>{
+  if(!sessionData.session)return;
+  try{await loadCloudData();startCloudSync();document.body.classList.add('authenticated')}
+  catch(err){console.error('Error cargando datos compartidos',err);await cloud.auth.signOut();document.getElementById('loginError').textContent='No se pudieron cargar los datos compartidos. Revisa la configuración de Supabase.'}
+ });
+}
 </script>
 </body>
 </html>
