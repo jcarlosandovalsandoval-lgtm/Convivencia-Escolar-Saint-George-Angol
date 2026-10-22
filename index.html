@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Programación de convivencia escolar | Colegio Saint George Angol</title>
+<style>
+:root{
+  --bg:#f4f6fb;--panel:#fff;--text:#172033;--muted:#6f7890;--line:#e5e9f2;
+  --primary:#5755d9;--primary2:#7775f0;--nav:#171a2d;--green:#16866a;
+  --amber:#b7791f;--red:#d44858;--blue:#2874c8;--shadow:0 10px 28px rgba(24,32,61,.07);
+}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font:14px/1.45 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text)}
+button,input,select,textarea{font:inherit}button{cursor:pointer}
+.app{min-height:100vh;display:grid;grid-template-columns:245px minmax(0,1fr)}
+.sidebar{background:var(--nav);color:#e8eaf5;padding:25px 16px;display:flex;flex-direction:column;gap:26px}
+.brand{display:flex;align-items:center;gap:11px;padding:0 9px}.logo{width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,#8e8bff,#514bd0);display:grid;place-items:center;font-weight:800;color:#fff;font-size:18px}
+.brand strong{font-size:16px;letter-spacing:.3px}.brand small{display:block;color:#9da4c3;font-size:11px;margin-top:1px}
+.nav-label{font-size:10px;color:#858dab;letter-spacing:1.4px;font-weight:800;padding:0 12px;margin-bottom:7px}
+.nav{display:grid;gap:5px}.nav button{border:0;background:transparent;color:#bfc4dc;text-align:left;border-radius:10px;padding:11px 12px;display:flex;align-items:center;gap:12px}
+.nav button:hover,.nav button.active{background:#2a2d49;color:white}.nav .ico{width:19px;text-align:center;font-size:16px}
+.side-bottom{margin-top:auto;border-top:1px solid #30334d;padding:18px 9px 0;color:#a9afca;font-size:12px}
+.profile{display:flex;gap:10px;align-items:center}.avatar{height:34px;width:34px;border-radius:50%;display:grid;place-items:center;background:#d9ddff;color:#4141a7;font-weight:800}
+main{min-width:0}.topbar{height:76px;background:rgba(255,255,255,.9);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 32px;position:sticky;top:0;z-index:5;backdrop-filter:blur(10px)}
+.crumb{color:var(--muted);font-size:12px}.crumb strong{color:var(--text)}.top-actions{display:flex;gap:10px;align-items:center}
+.btn{border:1px solid var(--line);background:white;color:var(--text);border-radius:9px;padding:9px 13px;font-weight:650;display:inline-flex;align-items:center;justify-content:center;gap:7px}
+.btn:hover{border-color:#b9baf8}.btn.primary{background:var(--primary);border-color:var(--primary);color:white}.btn.primary:hover{background:#4644c7}.btn.soft{background:#f0f0ff;color:var(--primary);border-color:#e2e1ff}
+.content{padding:28px 32px 44px;max-width:1600px;margin:auto}.page-head{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;margin-bottom:24px}
+h1{font-size:27px;letter-spacing:-.7px;margin:0 0 6px}.subtitle{color:var(--muted);margin:0}.head-buttons{display:flex;gap:9px;flex-wrap:wrap}
+.view{display:none}.view.active{display:block}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px;margin-bottom:22px}
+.kpi,.card{background:var(--panel);border:1px solid var(--line);border-radius:15px;box-shadow:var(--shadow)}
+.kpi{padding:18px}.kpi-top{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:12px;font-weight:650}.kpi-icon{width:32px;height:32px;display:grid;place-items:center;border-radius:10px;background:#f0efff;color:var(--primary);font-size:16px}.kpi-value{font-size:29px;font-weight:780;letter-spacing:-1px;margin:12px 0 2px}.kpi-foot{font-size:11px;color:var(--muted)}.positive{color:var(--green)}
+.grid-2{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(300px,1fr);gap:18px;margin-bottom:18px}
+.card{padding:20px;min-width:0}.card-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:17px}.card h2{font-size:15px;margin:0}.muted{color:var(--muted)}.tiny{font-size:11px}
+.project-list{display:grid;gap:17px}.project-row{display:grid;grid-template-columns:minmax(120px,1.2fr) minmax(100px,1.5fr) 42px;gap:15px;align-items:center}.project-name{font-weight:700;font-size:12px}.project-sub{color:var(--muted);font-size:11px;margin-top:3px}.progress{height:7px;background:#edf0f7;border-radius:10px;overflow:hidden}.progress span{display:block;height:100%;border-radius:10px;background:var(--primary)}.pct{text-align:right;font-size:12px;font-weight:750}
+.task-list{display:grid;gap:0}.task-row{display:grid;grid-template-columns:20px minmax(0,1fr) auto;gap:10px;align-items:center;padding:12px 0;border-bottom:1px solid #f0f2f7}.task-row:last-child{border-bottom:0}.check{height:16px;width:16px;border:1.5px solid #cbd1e1;border-radius:5px;background:white}.check.done{background:var(--green);border-color:var(--green);color:#fff}.task-title{font-weight:650;font-size:12px}.task-meta{font-size:11px;color:var(--muted);margin-top:3px}.pill{font-size:10px;padding:4px 8px;border-radius:20px;font-weight:750;white-space:nowrap}.pill.green{color:#127858;background:#e3f7ef}.pill.amber{color:#9b6816;background:#fff2d9}.pill.red{color:#bd3448;background:#ffe8ec}.pill.blue{color:#2468b1;background:#e7f2ff}.pill.gray{color:#667087;background:#edf0f6}
+.deadline-list{display:grid;gap:13px}.deadline{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:12px;align-items:center}.datebox{border:1px solid var(--line);border-radius:9px;text-align:center;padding:6px 2px}.datebox strong{display:block;font-size:17px}.datebox small{font-size:9px;color:var(--muted);font-weight:800}.deadline-title{font-size:12px;font-weight:700}.deadline-sub{font-size:11px;color:var(--muted);margin-top:3px}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:15px}.field{border:1px solid var(--line);background:white;border-radius:9px;padding:9px 11px;color:var(--text);min-width:0}.search{min-width:220px;flex:1}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:12px;background:white}
+table{border-collapse:collapse;width:100%;min-width:850px}th,td{text-align:left;padding:13px 14px;border-bottom:1px solid #eef0f5;font-size:12px;vertical-align:middle}th{background:#f9faff;color:var(--muted);font-size:10px;letter-spacing:.7px;text-transform:uppercase;white-space:nowrap}tbody tr:last-child td{border-bottom:0}tbody tr:hover{background:#fbfbff}.task-link{font-weight:700;border:0;background:transparent;color:var(--text);padding:0;text-align:left}.task-link:hover{color:var(--primary)}.person{display:flex;align-items:center;gap:8px;white-space:nowrap}.mini-avatar{height:25px;width:25px;border-radius:50%;display:grid;place-items:center;background:#ecebff;color:#504ac2;font-size:9px;font-weight:800}
+.kanban{display:grid;grid-template-columns:repeat(4,minmax(220px,1fr));gap:14px;overflow:auto;padding-bottom:8px}.kanban-col{background:#eef1f8;border-radius:13px;padding:12px;min-height:300px}.kanban-head{display:flex;justify-content:space-between;align-items:center;padding:4px 3px 12px;font-weight:750;font-size:12px}.count{background:#fff;border-radius:7px;padding:3px 7px;color:var(--muted);font-size:10px}.kanban-card{background:white;border:1px solid #e3e7f0;border-radius:10px;padding:13px;margin-bottom:9px;box-shadow:0 3px 8px rgba(20,30,60,.03)}.kanban-card h3{font-size:12px;margin:8px 0}.kanban-card p{font-size:11px;color:var(--muted);margin:0 0 11px}.kanban-foot{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.gantt-card{overflow:auto}.gantt{min-width:760px}.gantt-head,.gantt-row{display:grid;grid-template-columns:220px repeat(14,minmax(25px,1fr));align-items:center}.gantt-head{font-size:10px;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:10px}.gantt-row{height:47px;border-bottom:1px solid #f0f2f7}.gantt-label{font-size:11px;font-weight:650;padding-right:10px}.gantt-cell{height:100%;border-left:1px solid #f3f4f8;position:relative}.bar{height:13px;border-radius:6px;background:var(--primary);position:absolute;top:16px;min-width:7px}.bar.green{background:#21a17b}.bar.amber{background:#e4a43b}.bar.red{background:#db5866}.milestone{position:absolute;top:14px;width:15px;height:15px;background:#e4a43b;transform:rotate(45deg);border-radius:3px}
+.agent-layout{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(280px,.7fr);gap:18px}.chat-card{display:flex;flex-direction:column;min-height:480px}.chat-messages{flex:1;display:flex;flex-direction:column;gap:13px;padding:4px 0 18px}.bubble{max-width:90%;padding:12px 14px;border-radius:12px;font-size:12px;line-height:1.6}.bubble.ai{background:#f1f1ff;border:1px solid #e4e3ff;align-self:flex-start}.bubble.user{background:#e8f3ff;align-self:flex-end}.bubble strong{display:block;margin-bottom:4px}.chat-form{display:flex;gap:8px;border-top:1px solid var(--line);padding-top:14px}.chat-form input{flex:1;min-width:0}.suggestions{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:13px}.suggestion{border:1px solid #e2e3f8;background:#fafaff;color:#4d4ac0;border-radius:20px;padding:7px 10px;font-size:11px}.notice{background:#fff8e8;border:1px solid #f5e4bb;color:#825c18;padding:12px;border-radius:10px;font-size:11px;line-height:1.55}
+.empty{padding:35px;text-align:center;color:var(--muted)}
+.modal-backdrop{position:fixed;inset:0;background:rgba(16,20,40,.48);z-index:20;display:none;align-items:center;justify-content:center;padding:20px}.modal-backdrop.open{display:flex}.modal{width:min(620px,100%);max-height:90vh;overflow:auto;background:white;border-radius:16px;box-shadow:0 20px 70px #10142c40;padding:23px}.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.modal-head h2{margin:0;font-size:18px}.close{border:0;background:#f0f2f8;border-radius:8px;width:32px;height:32px;font-size:18px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.form-group{display:grid;gap:6px}.form-group.full{grid-column:1/-1}.form-group label{font-size:11px;font-weight:750;color:#59627a}.form-group input,.form-group select,.form-group textarea{border:1px solid var(--line);border-radius:9px;padding:10px 11px;width:100%;background:#fff;color:var(--text)}.form-group textarea{min-height:75px;resize:vertical}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:20px}
+.toast{position:fixed;right:22px;bottom:22px;background:#1c2340;color:white;padding:12px 17px;border-radius:10px;box-shadow:var(--shadow);z-index:30;display:none;font-size:12px}.toast.show{display:block}
+.mobile-menu{display:none}
+body:not(.authenticated) .app{display:none}
+.login-screen{min-height:100vh;display:none;align-items:center;justify-content:center;padding:24px;background-color:var(--bg);background-image:linear-gradient(rgba(245,244,241,.78),rgba(245,244,241,.78)),url("colegio-fondo.jpeg");background-size:cover,cover;background-position:center;background-repeat:no-repeat;background-attachment:fixed}
+body:not(.authenticated) .login-screen{display:flex}
+.login-card{width:min(420px,100%);padding:34px;background:#fff;border:1px solid var(--line);border-radius:22px;box-shadow:0 24px 70px rgba(34,39,31,.12)}
+.login-brand{display:flex;align-items:center;gap:13px;margin-bottom:28px}.login-brand .logo{flex:none}.login-brand strong{display:block;font-size:17px;line-height:1.25}.login-brand small{display:block;margin-top:5px;color:var(--muted)}
+.school-badge{width:46px;height:46px;flex:none;object-fit:contain;background:#fff;border:1px solid #e5e0d3;border-radius:11px;padding:1px}
+.profile-photo{width:38px;height:38px;flex:none;object-fit:cover;object-position:center 54%;border:1px solid #ffffff55;border-radius:50%}
+.login-card h1{font-size:23px;margin:0 0 7px}.login-card>p{color:var(--muted);font-size:13px;margin:0 0 22px}.login-form{display:grid;gap:14px}.login-form .btn{width:100%;margin-top:3px;padding:11px}.login-error{min-height:18px;color:#a9504b;font-size:12px;margin-top:-4px}
+.logout-btn{margin-top:15px;width:100%;border:1px solid #414938;background:transparent;color:#d4d8ce;border-radius:9px;padding:8px 10px;text-align:left;font:inherit;font-size:11px}.logout-btn:hover{background:#303a30;color:#fff}
+/* Colores de estado consistentes en etiquetas y selectores. */
+.status-select.green{color:#28684e;background:#edf5ef;border-color:#d8e8da}.status-select.blue{color:#3f6c80;background:#edf4f7;border-color:#d9e6eb}.status-select.amber{color:#8d672c;background:#fbf3e5;border-color:#eee1c5}.status-select.red{color:#a9504b;background:#fbefed;border-color:#efddda}.status-select.gray{color:#666b61;background:#f0f1ed;border-color:#e2e4de}
+.status-select{font-weight:700}
+/* Pulido visual: tonos cálidos, superficies limpias y controles más definidos. */
+:root{--bg:#f5f4f1;--panel:#fff;--text:#20221f;--muted:#77796f;--line:#e8e6df;--primary:#536b59;--primary2:#718675;--nav:#202820;--green:#38745a;--amber:#a87935;--red:#bb5d55;--blue:#55778a;--shadow:0 12px 34px rgba(34,39,31,.065)}
+body{background-color:var(--bg);background-image:linear-gradient(rgba(245,244,241,.86),rgba(245,244,241,.86)),url("colegio-fondo.jpeg");background-size:cover,cover;background-position:center;background-repeat:no-repeat;background-attachment:fixed;letter-spacing:.005em}
+.sidebar{background:linear-gradient(180deg,#202820,#28332b);box-shadow:8px 0 28px #2028200d}
+.logo{background:linear-gradient(135deg,#a9b6a0,#536b59);border-radius:11px}
+.nav button{transition:background .18s ease,color .18s ease,transform .18s ease}.nav button:hover{transform:translateX(2px)}
+.topbar{background:rgba(255,255,255,.88)}
+h1{font-size:29px;letter-spacing:-.9px}.subtitle{font-size:13px}
+.kpi,.card{border-color:#e9e7e0;border-radius:17px;box-shadow:var(--shadow);transition:box-shadow .2s ease,transform .2s ease}
+.kpi:hover,.card:hover{box-shadow:0 15px 36px rgba(34,39,31,.09)}
+.kpi-icon{background:#eef1eb;color:var(--primary)}
+.btn{border-radius:10px;transition:all .16s ease}.btn:hover{transform:translateY(-1px);border-color:#b9c4b7;box-shadow:0 5px 12px #26312610}.btn.primary{background:linear-gradient(135deg,#607964,#465d4c);border-color:#536b59}
+.field,.form-group input,.form-group select,.form-group textarea{border-color:#e3e2da;border-radius:10px;transition:border-color .15s,box-shadow .15s}
+.field:focus,.form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:0;border-color:#829481;box-shadow:0 0 0 3px #536b591a}
+.modal{border-radius:20px;box-shadow:0 24px 80px #10181045}.modal-backdrop{backdrop-filter:blur(3px)}
+.alert-backdrop{position:fixed;inset:0;z-index:40;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(21,29,23,.48);backdrop-filter:blur(4px)}
+.alert-backdrop.open{display:flex;animation:alertFade .18s ease-out}.schedule-alert{width:min(430px,100%);padding:28px;border:1px solid #e8e9e0;border-radius:22px;background:#fff;box-shadow:0 28px 90px #10181040;text-align:center;animation:alertRise .22s ease-out}
+.alert-icon{width:54px;height:54px;margin:0 auto 15px;border-radius:18px;display:grid;place-items:center;background:#edf2ec;color:#536b59;font-size:25px}
+.schedule-alert h2{margin:0 0 8px;font-size:20px;letter-spacing:-.4px}.schedule-alert p{margin:0;color:var(--muted);font-size:13px;line-height:1.65}.schedule-alert .alert-date{display:inline-flex;margin:17px 0 20px;padding:9px 13px;border:1px solid #e6e8df;border-radius:10px;background:#f7f8f5;color:#435746;font-size:12px;font-weight:750}
+.schedule-alert .btn{width:100%}
+@keyframes alertFade{from{opacity:0}to{opacity:1}}@keyframes alertRise{from{opacity:0;transform:translateY(8px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+@media(max-width:1100px){.app{grid-template-columns:205px minmax(0,1fr)}.content{padding:24px 20px}.topbar{padding:0 20px}.kpis{grid-template-columns:repeat(2,1fr)}.grid-2,.agent-layout{grid-template-columns:1fr}}
+@media(max-width:720px){.app{display:block}.sidebar{display:none;position:fixed;z-index:15;inset:0 auto 0 0;width:250px}.sidebar.open{display:flex}.mobile-menu{display:inline-flex}.topbar{height:64px;padding:0 14px}.content{padding:20px 13px}.page-head{display:block}.head-buttons{margin-top:15px}.kpis{gap:9px}.kpi{padding:13px}.kpi-value{font-size:24px}.grid-2{gap:12px}.card{padding:15px}.form-grid{grid-template-columns:1fr}.form-group.full{grid-column:auto}.top-actions .hide-mobile{display:none}.project-row{grid-template-columns:minmax(100px,1fr) minmax(80px,1fr) 35px;gap:9px}}
+</style>
+</head>
+<body>
+<section class="login-screen" id="loginScreen" aria-label="Inicio de sesión">
+  <div class="login-card">
+    <div class="login-brand"><img class="school-badge" src="colegio-insignia.jpeg" alt="Insignia del Colegio Saint George Angol"><div><strong>Programación convivencia escolar</strong><small>Colegio Saint George Angol</small></div></div>
+    <h1>Iniciar sesión</h1><p>Ingresa tus credenciales para continuar.</p>
+    <form class="login-form" id="loginForm">
+      <div class="form-group"><label for="loginUser">Usuario</label><input id="loginUser" name="username" autocomplete="username" required autofocus></div>
+      <div class="form-group"><label for="loginPassword">Contraseña</label><input id="loginPassword" name="password" type="password" autocomplete="current-password" required></div>
+      <div class="login-error" id="loginError" role="alert" aria-live="polite"></div>
+      <button class="btn primary" type="submit">Entrar</button>
+    </form>
+  </div>
+</section>
+<div class="app">
+  <aside class="sidebar" id="sidebar">
+    <div class="brand"><img class="school-badge" src="colegio-insignia.jpeg" alt="Insignia del Colegio Saint George Angol"><div><strong>Programación<br>convivencia escolar</strong><small>Colegio Saint George Angol</small></div></div>
+    <div><div class="nav-label">ESPACIO DE TRABAJO</div><nav class="nav" id="nav">
+      <button class="active" data-view="dashboard"><span class="ico">▦</span>Resumen ejecutivo</button>
+      <button data-view="projects"><span class="ico">▣</span>Proyectos</button>
+      <button data-view="tasks"><span class="ico">☷</span>Tareas</button>
+      <button data-view="kanban"><span class="ico">▥</span>Tablero Kanban</button>
+      <button data-view="timeline"><span class="ico">▤</span>Cronograma Gantt</button>
+      <button data-view="milestones"><span class="ico">◆</span>Hitos</button>
+      <button data-view="team"><span class="ico">♙</span>Equipo</button>
+      <button data-view="people"><span class="ico">♧</span>Personas</button>
+    </nav></div>
+    <div><div class="nav-label">INTELIGENCIA</div><nav class="nav">
+      <button data-view="agent"><span class="ico">✧</span>Project Agent <span class="pill" style="background:#38365e;color:#c7c4ff;margin-left:auto">IA</span></button>
+      <button data-view="reports"><span class="ico">▧</span>Indicadores</button>
+    </nav></div>
+    <div class="side-bottom"><div class="profile"><img class="profile-photo" src="colegio-fondo.jpeg" alt="Colegio Saint George Angol"><div><strong style="color:#fff">Convivencia</strong><div>Colegio Saint George Angol</div></div></div><button class="logout-btn" id="logoutBtn" type="button">↪ Cerrar sesión</button></div>
+  </aside>
+  <main>
+    <header class="topbar">
+      <div style="display:flex;align-items:center;gap:12px"><button class="btn mobile-menu" id="mobileMenu">☰</button><div class="crumb">Espacio de trabajo&nbsp; / &nbsp;<strong id="breadcrumb">Resumen ejecutivo</strong></div></div>
+      <div class="top-actions"><button class="btn hide-mobile" id="exportBtn">⇩ Exportar CSV</button><button class="btn primary" id="topNewTask">＋ Nueva tarea</button></div>
+    </header>
+    <div class="content">
+      <section class="view active" id="view-dashboard">
+        <div class="page-head"><div><h1>Resumen ejecutivo</h1><p class="subtitle">Una visión clara del avance, los compromisos y las prioridades del equipo.</p></div><div class="head-buttons"><button class="btn" id="newProjectDash">＋ Nuevo proyecto</button><button class="btn primary" id="newTaskDash">＋ Crear tarea</button></div></div>
+        <div class="kpis" id="kpis"></div>
+        <div class="grid-2">
+          <div class="card"><div class="card-head"><h2>Avance de proyectos</h2><button class="btn" data-goto="projects">Ver proyectos ↗</button></div><div class="project-list" id="projectProgress"></div></div>
+          <div class="card"><div class="card-head"><h2>Próximos hitos</h2><button class="btn" data-goto="milestones">Ver todos ↗</button></div><div class="deadline-list" id="upcomingMilestones"></div></div>
+        </div>
+        <div class="grid-2">
+          <div class="card"><div class="card-head"><h2>Prioridades de la semana</h2><span class="pill amber">Seguimiento</span></div><div class="task-list" id="priorityTasks"></div></div>
+          <div class="card"><div class="card-head"><h2>Actividad del equipo</h2><span class="muted tiny">Carga asignada</span></div><div id="teamLoad" class="project-list"></div></div>
+        </div>
+      </section>
+      <section class="view" id="view-projects">
+        <div class="page-head"><div><h1>Proyectos</h1><p class="subtitle">Organiza objetivos, fases, responsables y entregables.</p></div><div class="head-buttons"><button class="btn primary" id="newProjectBtn">＋ Nuevo proyecto</button></div></div>
+        <div class="toolbar"><input class="field search" id="projectSearch" placeholder="Buscar proyecto…"><select class="field" id="projectStatusFilter"><option value="">Todos los estados</option><option>Activo</option><option>Planificación</option><option>En riesgo</option><option>Completado</option></select></div>
+        <div class="grid-2" id="projectCards"></div>
+      </section>
+      <section class="view" id="view-tasks">
+        <div class="page-head"><div><h1>Tareas</h1><p class="subtitle">Controla responsables, prioridades, fechas y dependencias.</p></div><div class="head-buttons"><button class="btn primary" id="newTaskBtn">＋ Nueva tarea</button></div></div>
+        <div class="toolbar"><input class="field search" id="taskSearch" placeholder="Buscar tarea o responsable…"><select class="field" id="taskProjectFilter"><option value="">Todos los proyectos</option></select><select class="field" id="taskStatusFilter"><option value="">Todos los estados</option><option>Pendiente</option><option>En curso</option><option>En revisión</option><option>Completada</option></select></div>
+        <div class="table-wrap"><table><thead><tr><th>Tarea</th><th>Proyecto</th><th>Responsable</th><th>Prioridad</th><th>Estado</th><th>Fecha límite</th><th>Acciones</th></tr></thead><tbody id="tasksTable"></tbody></table></div>
+      </section>
+      <section class="view" id="view-kanban">
+        <div class="page-head"><div><h1>Tablero Kanban</h1><p class="subtitle">Visualiza el flujo de trabajo y mueve las tareas entre estados.</p></div><div class="head-buttons"><button class="btn primary" id="kanbanNew">＋ Nueva tarea</button></div></div>
+        <div class="toolbar"><select class="field" id="kanbanProjectFilter"><option value="">Todos los proyectos</option></select><span class="muted tiny">Los cambios de estado se guardan automáticamente en este navegador.</span></div>
+        <div class="kanban" id="kanbanBoard"></div>
+      </section>
+      <section class="view" id="view-timeline">
+        <div class="page-head"><div><h1>Cronograma Gantt</h1><p class="subtitle">Vista preliminar de tareas, duración y fechas planificadas.</p></div><div class="head-buttons"><button class="btn primary" id="ganttNew">＋ Nueva tarea</button></div></div>
+        <div class="toolbar"><select class="field" id="ganttProjectFilter"><option value="">Todos los proyectos</option></select><span class="muted tiny">Ventana visual de 14 días desde la fecha de inicio más próxima.</span></div>
+        <div class="card gantt-card"><div class="gantt" id="ganttChart"></div></div>
+      </section>
+      <section class="view" id="view-milestones">
+        <div class="page-head"><div><h1>Hitos</h1><p class="subtitle">Resultados verificables que marcan el avance del proyecto.</p></div><div class="head-buttons"><button class="btn primary" id="newMilestoneBtn">＋ Nuevo hito</button></div></div>
+        <div class="table-wrap"><table><thead><tr><th>Hito</th><th>Proyecto</th><th>Fecha objetivo</th><th>Responsable</th><th>Estado</th><th>Acciones</th></tr></thead><tbody id="milestonesTable"></tbody></table></div>
+      </section>
+      <section class="view" id="view-team">
+        <div class="page-head"><div><h1>Equipo</h1><p class="subtitle">Personas, funciones y distribución de tareas asignadas.</p></div><div class="head-buttons"><button class="btn primary" id="newPersonBtn">＋ Agregar persona</button></div></div>
+        <div class="grid-2" id="teamCards"></div>
+      </section>
+      <section class="view" id="view-people">
+        <div class="page-head"><div><h1>Personas</h1><p class="subtitle">Registra a las personas y sus cargos.</p></div><div class="head-buttons"><button class="btn primary" id="addPersonBtn">＋ Agregar persona</button></div></div>
+        <div class="table-wrap"><table style="min-width:420px"><thead><tr><th>Persona</th><th>Cargo</th><th>Acciones</th></tr></thead><tbody id="peopleTable"></tbody></table></div>
+      </section>
+      <section class="view" id="view-agent">
+        <div class="page-head"><div><h1>Project Agent</h1><p class="subtitle">Asistente de planificación para consultar y estructurar el trabajo.</p></div><span class="pill blue">Modo demostración</span></div>
+        <div class="agent-layout">
+          <div class="card chat-card"><div class="chat-messages" id="chatMessages"><div class="bubble ai"><strong>✧ Asistente de planificación</strong>Consulta tareas por persona y fecha, revisa atrasos o pide un resumen de lo registrado. El asistente consulta los datos guardados en este navegador.</div></div><div class="suggestions"><button class="suggestion" data-prompt="Resume el estado general de los proyectos">Resumen de proyectos</button><button class="suggestion" data-prompt="¿Qué tareas están atrasadas?">Detectar atrasos</button><button class="suggestion" data-prompt="¿Cuáles son los próximos hitos?">Próximos hitos</button><button class="suggestion" data-prompt="Sugiere cómo organizar el trabajo pendiente">Organizar trabajo</button></div><form class="chat-form" id="chatForm"><input class="field" id="chatInput" placeholder="Ej.: tareas de una persona para mañana…" autocomplete="off"><button class="btn primary">Enviar ↑</button></form></div>
+          <div style="display:grid;gap:15px;align-content:start"><div class="card"><div class="card-head"><h2>Funciones del asistente</h2></div><div class="task-list"><div class="task-row"><span class="kpi-icon">✓</span><div><div class="task-title">Consulta de datos locales</div><div class="task-meta">Proyectos, tareas, personas e hitos.</div></div></div><div class="task-row"><span class="kpi-icon">⌘</span><div><div class="task-title">Propuestas de planificación</div><div class="task-meta">Respuestas basadas en reglas y datos guardados.</div></div></div><div class="task-row"><span class="kpi-icon">↗</span><div><div class="task-title">Asistente ampliable</div><div class="task-meta">La conexión a una IA requiere un backend seguro.</div></div></div></div></div><div class="notice"><strong>Almacenamiento:</strong> los cambios se guardan en este navegador y no se comparten automáticamente con otros equipos.</div></div>
+        </div>
+      </section>
+      <section class="view" id="view-reports">
+        <div class="page-head"><div><h1>Indicadores de gestión</h1><p class="subtitle">Métricas calculadas a partir de los datos actuales.</p></div><button class="btn" id="reportExport">⇩ Exportar tareas CSV</button></div>
+        <div class="kpis" id="reportKpis"></div>
+        <div class="grid-2"><div class="card"><div class="card-head"><h2>Distribución por estado</h2></div><div id="statusBreakdown" class="project-list"></div></div><div class="card"><div class="card-head"><h2>Distribución por prioridad</h2></div><div id="priorityBreakdown" class="project-list"></div></div></div>
+      </section>
+    </div>
+  </main>
+</div>
+
+<div class="modal-backdrop" id="modalBackdrop"><div class="modal"><div class="modal-head"><h2 id="modalTitle">Nueva tarea</h2><button class="close" id="modalClose">×</button></div><form id="entityForm"><div class="form-grid" id="formFields"></div><div class="modal-actions"><button type="button" class="btn" id="modalCancel">Cancelar</button><button class="btn primary" type="submit">Guardar</button></div></form></div></div>
+<div class="alert-backdrop" id="scheduleAlert" role="alertdialog" aria-modal="true" aria-labelledby="scheduleAlertTitle" aria-describedby="scheduleAlertBody"><section class="schedule-alert"><div class="alert-icon" aria-hidden="true">✓</div><h2 id="scheduleAlertTitle">Quedó programado</h2><p id="scheduleAlertBody"></p><div class="alert-date" id="scheduleAlertDate"></div><button class="btn primary" id="scheduleAlertClose" type="button">Entendido</button></section></div>
+<div class="toast" id="toast"></div>
+<script>
+const STORAGE_KEY='nexus_convivencia_escolar_v1';
+const today=new Date(); today.setHours(0,0,0,0);
+const iso=(d)=>{const x=new Date(d);return `${x.getFullYear()}-${String(x.getMonth()+1).padStart(2,'0')}-${String(x.getDate()).padStart(2,'0')}`};
+const addDays=(n)=>{let d=new Date(today);d.setDate(d.getDate()+n);return iso(d)};
+const dateLabel=(s)=>{if(!s)return 'Sin fecha';const d=new Date(s+'T12:00:00');return d.toLocaleDateString('es-CL',{day:'2-digit',month:'short',year:'numeric'})};
+const shortDate=(s)=>{if(!s)return {day:'—',month:'S/F'};const d=new Date(s+'T12:00:00');return {day:d.getDate(),month:d.toLocaleDateString('es-CL',{month:'short'}).replace('.','').toUpperCase()}};
+const esc=(s)=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid=(prefix)=>prefix+'-'+Math.random().toString(36).slice(2,7).toUpperCase();
+const defaultData=()=>({people:[],projects:[],tasks:[],milestones:[]});
+let data;
+try{data=JSON.parse(localStorage.getItem(STORAGE_KEY))||defaultData()}catch(e){data=defaultData()}
+const AUTH_SESSION_KEY='convivencia_session';
+if(sessionStorage.getItem(AUTH_SESSION_KEY)==='active')document.body.classList.add('authenticated');
+document.getElementById('loginForm').addEventListener('submit',e=>{
+ e.preventDefault();
+ const username=document.getElementById('loginUser').value.trim().normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+ const password=document.getElementById('loginPassword').value;
+ if(username==='convivencia escolar'&&password==='colegio saint george'){
+  sessionStorage.setItem(AUTH_SESSION_KEY,'active');document.body.classList.add('authenticated');document.getElementById('loginError').textContent='';
+ }else{document.getElementById('loginError').textContent='Usuario o contraseña incorrectos.';document.getElementById('loginPassword').value='';document.getElementById('loginPassword').focus()}
+});
+document.getElementById('logoutBtn').addEventListener('click',()=>{sessionStorage.removeItem(AUTH_SESSION_KEY);document.body.classList.remove('authenticated');document.getElementById('loginForm').reset();document.getElementById('loginUser').focus()});
+let currentView='dashboard', editing=null, formType=null;
+const $=id=>document.getElementById(id);
+const statusClass=s=>({'Completada':'green','Completado':'green','En curso':'blue','En revisión':'amber','En riesgo':'red','Pendiente':'gray','Activo':'green','Planificación':'blue'}[s]||'gray');
+const initials=name=>(name||'?').split(/\s+/).slice(0,2).map(x=>x[0]).join('').toUpperCase();
+const person=id=>data.people.find(p=>p.id===id);
+const project=id=>data.projects.find(p=>p.id===id);
+const personName=id=>person(id)?.name||'Sin asignar';
+const projectName=id=>id?(project(id)?.name||'Proyecto eliminado'):'Sin proyecto';
+const save=()=>{localStorage.setItem(STORAGE_KEY,JSON.stringify(data));renderAll()};
+function toast(msg){$('toast').textContent=msg;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),2600)}
+function showScheduleAlert(title,date,kind){
+ const sameDay=data.tasks.filter(t=>t.due===date&&t.status!=='Completada');
+ const upcoming=data.tasks.filter(t=>t.status!=='Completada'&&t.due&&t.due>=iso(today)).sort((a,b)=>a.due.localeCompare(b.due))[0];
+ const details=sameDay.length?`Para ese día hay ${sameDay.length} tarea(s): ${sameDay.map(t=>t.title).join(', ')}.`:'No hay otras tareas pendientes para ese día.';
+ const next=upcoming?` Próxima tarea: ${upcoming.title} · ${dateLabel(upcoming.due)} · ${personName(upcoming.assignee)}.`:' No quedan tareas próximas pendientes.';
+ $('scheduleAlertTitle').textContent=kind==='milestone'?'Hito programado':'Tarea programada';
+ $('scheduleAlertBody').textContent=`“${title}” quedó agendado. ${details}${next}`;
+ $('scheduleAlertDate').textContent=dateLabel(date);$('scheduleAlert').classList.add('open');$('scheduleAlertClose').focus()
+}
+function closeScheduleAlert(){$('scheduleAlert').classList.remove('open')}
+$('scheduleAlertClose').onclick=closeScheduleAlert;$('scheduleAlert').onclick=e=>{if(e.target===$('scheduleAlert'))closeScheduleAlert()};document.addEventListener('keydown',e=>{if(e.key==='Escape')closeScheduleAlert()});
+function navTo(view){currentView=view;document.querySelectorAll('.view').forEach(x=>x.classList.toggle('active',x.id==='view-'+view));document.querySelectorAll('#nav button,[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===view));$('breadcrumb').textContent=({dashboard:'Resumen ejecutivo',projects:'Proyectos',tasks:'Tareas',kanban:'Tablero Kanban',timeline:'Cronograma Gantt',milestones:'Hitos',team:'Equipo',people:'Personas',agent:'Project Agent',reports:'Indicadores'})[view]||view;$('sidebar').classList.remove('open');renderAll()}
+document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>navTo(b.dataset.view)));
+document.querySelectorAll('[data-goto]').forEach(b=>b.addEventListener('click',()=>navTo(b.dataset.goto)));
+$('mobileMenu').onclick=()=>$('sidebar').classList.toggle('open');
+function kpi(label,value,foot,icon){return `<div class="kpi"><div class="kpi-top"><span>${label}</span><span class="kpi-icon">${icon}</span></div><div class="kpi-value">${value}</div><div class="kpi-foot">${foot}</div></div>`}
+function renderDashboard(){
+ const done=data.tasks.filter(t=>t.status==='Completada').length, late=data.tasks.filter(t=>t.status!=='Completada'&&t.due&&t.due<iso(today)).length, pct=data.tasks.length?Math.round(done/data.tasks.length*100):0;
+ $('kpis').innerHTML=kpi('Proyectos activos',data.projects.filter(p=>p.status!=='Completado').length,'En seguimiento','▣')+kpi('Tareas registradas',data.tasks.length,'En todos los proyectos','☷')+kpi('Cumplimiento',pct+'%',done+' tareas completadas','✓')+kpi('Tareas atrasadas',late,late?'Requieren revisión':'Sin tareas vencidas','◷');
+ $('projectProgress').innerHTML=data.projects.length?data.projects.map(p=>{let ts=data.tasks.filter(t=>t.projectId===p.id),d=ts.filter(t=>t.status==='Completada').length,pr=ts.length?Math.round(d/ts.length*100):0;return `<div class="project-row"><div><div class="project-name">${esc(p.name)}</div><div class="project-sub">${ts.length} tareas · <span class="pill ${statusClass(p.status)}">${esc(p.status)}</span></div></div><div class="progress"><span style="width:${pr}%"></span></div><div class="pct">${pr}%</div></div>`}).join(''):'<div class="empty">Aún no hay proyectos.</div>';
+ const ms=[...data.milestones].filter(m=>m.status!=='Completado').sort((a,b)=>(a.date||'').localeCompare(b.date||'')).slice(0,4);
+ $('upcomingMilestones').innerHTML=ms.length?ms.map(m=>{let d=shortDate(m.date);return `<div class="deadline"><div class="datebox"><strong>${d.day}</strong><small>${d.month}</small></div><div><div class="deadline-title">${esc(m.title)}</div><div class="deadline-sub">${esc(projectName(m.projectId))}</div></div><span class="pill ${statusClass(m.status)}">${esc(m.status)}</span></div>`}).join(''):'<div class="empty">No hay hitos pendientes.</div>';
+ let tasks=[...data.tasks].filter(t=>t.status!=='Completada').sort((a,b)=>({Crítica:0,Alta:1,Media:2,Baja:3}[a.priority]??4)-({Crítica:0,Alta:1,Media:2,Baja:3}[b.priority]??4)).slice(0,4);
+ $('priorityTasks').innerHTML=tasks.length?tasks.map(t=>`<div class="task-row"><button class="check ${t.status==='Completada'?'done':''}" data-complete="${t.id}">${t.status==='Completada'?'✓':''}</button><div><div class="task-title">${esc(t.title)}</div><div class="task-meta">${esc(personName(t.assignee))} · vence ${dateLabel(t.due)}</div></div><span class="pill ${t.priority==='Crítica'||t.priority==='Alta'?'red':t.priority==='Media'?'amber':'gray'}">${esc(t.priority)}</span></div>`).join(''):'<div class="empty">No hay tareas pendientes.</div>';
+ $('teamLoad').innerHTML=data.people.map(p=>{let n=data.tasks.filter(t=>t.assignee===p.id&&t.status!=='Completada').length,total=data.tasks.filter(t=>t.assignee===p.id).length,pc=total?Math.round(n/total*100):0;return `<div class="project-row"><div><div class="project-name">${esc(p.name)}</div><div class="project-sub">${n} pendientes de ${total}</div></div><div class="progress"><span style="width:${pc}%;background:${pc>75?'#e4a43b':'#5755d9'}"></span></div><div class="pct">${n}</div></div>`}).join('')||'<div class="empty">Agrega integrantes para comenzar.</div>';
+ document.querySelectorAll('[data-complete]').forEach(b=>b.onclick=()=>{let t=data.tasks.find(t=>t.id===b.dataset.complete);if(t){t.status=t.status==='Completada'?'Pendiente':'Completada';save();toast('Estado de tarea actualizado')}});
+}
+function renderProjects(){
+ const search=($('projectSearch')?.value||'').toLowerCase(),st=$('projectStatusFilter')?.value||'';
+ let list=data.projects.filter(p=>(p.name+' '+p.description).toLowerCase().includes(search)&&(!st||p.status===st));
+ $('projectCards').innerHTML=list.length?list.map(p=>{let ts=data.tasks.filter(t=>t.projectId===p.id),d=ts.filter(t=>t.status==='Completada').length,pc=ts.length?Math.round(d/ts.length*100):0;return `<div class="card"><div class="card-head"><span class="pill ${statusClass(p.status)}">${esc(p.status)}</span><button class="btn" data-edit-project="${p.id}">Editar</button></div><h2 style="font-size:17px;margin-bottom:8px">${esc(p.name)}</h2><p class="muted" style="font-size:12px;min-height:36px">${esc(p.description||'Sin descripción')}</p><div style="display:flex;justify-content:space-between;margin:18px 0 8px;font-size:11px"><span class="muted">Avance de tareas</span><strong>${pc}%</strong></div><div class="progress"><span style="width:${pc}%"></span></div><div style="display:flex;justify-content:space-between;margin-top:16px;font-size:11px"><span class="muted">Responsable</span><strong>${esc(personName(p.owner))}</strong></div><div style="display:flex;justify-content:space-between;margin-top:7px;font-size:11px"><span class="muted">Plazo</span><strong>${dateLabel(p.end)}</strong></div><div style="display:flex;gap:8px;margin-top:18px"><button class="btn soft" data-project-tasks="${p.id}">Ver tareas (${ts.length})</button><button class="btn" data-delete-project="${p.id}">Eliminar</button></div></div>`}).join(''):'<div class="card empty">No se encontraron proyectos. Crea uno para comenzar.</div>';
+ document.querySelectorAll('[data-edit-project]').forEach(b=>b.onclick=()=>openForm('project',b.dataset.editProject));
+ document.querySelectorAll('[data-project-tasks]').forEach(b=>{b.onclick=()=>{navTo('tasks');$('taskProjectFilter').value=b.dataset.projectTasks;renderTasks()}});
+ document.querySelectorAll('[data-delete-project]').forEach(b=>b.onclick=()=>deleteProject(b.dataset.deleteProject));
+}
+function populateProjectFilters(){['taskProjectFilter','kanbanProjectFilter','ganttProjectFilter'].forEach(id=>{let el=$(id),old=el.value;el.innerHTML='<option value="">Todos los proyectos</option>'+data.projects.map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join('');el.value=old})}
+function renderTasks(){
+ let q=($('taskSearch')?.value||'').toLowerCase(),pid=$('taskProjectFilter')?.value||'',st=$('taskStatusFilter')?.value||'';
+ let list=data.tasks.filter(t=>(t.title+' '+personName(t.assignee)).toLowerCase().includes(q)&&(!pid||t.projectId===pid)&&(!st||t.status===st));
+ $('tasksTable').innerHTML=list.length?list.map(t=>`<tr><td><button class="task-link" data-edit-task="${t.id}">${esc(t.title)}</button><div class="muted tiny">${esc(t.id)}</div></td><td>${esc(projectName(t.projectId))}</td><td><div class="person"><span class="mini-avatar">${esc(initials(personName(t.assignee)))}</span>${esc(personName(t.assignee))}</div></td><td><span class="pill ${t.priority==='Crítica'||t.priority==='Alta'?'red':t.priority==='Media'?'amber':'gray'}">${esc(t.priority)}</span></td><td><select class="field status-select ${statusClass(t.status)}" style="padding:5px 7px;font-size:11px" data-task-status="${t.id}">${['Pendiente','En curso','En revisión','Completada'].map(s=>`<option ${s===t.status?'selected':''}>${s}</option>`).join('')}</select></td><td>${dateLabel(t.due)}</td><td><button class="btn" data-delete-task="${t.id}">Eliminar</button></td></tr>`).join(''):'<tr><td colspan="7" class="empty">No hay tareas que coincidan con los filtros.</td></tr>';
+ document.querySelectorAll('[data-edit-task]').forEach(b=>b.onclick=()=>openForm('task',b.dataset.editTask));
+ document.querySelectorAll('[data-task-status]').forEach(s=>s.onchange=()=>{let t=data.tasks.find(t=>t.id===s.dataset.taskStatus);if(t){t.status=s.value;save();toast('Estado actualizado')}});
+ document.querySelectorAll('[data-delete-task]').forEach(b=>b.onclick=()=>{if(confirm('¿Eliminar esta tarea?')){data.tasks=data.tasks.filter(t=>t.id!==b.dataset.deleteTask);save();toast('Tarea eliminada')}});
+}
+function renderKanban(){
+ let pid=$('kanbanProjectFilter')?.value||'',statuses=['Pendiente','En curso','En revisión','Completada'];
+ $('kanbanBoard').innerHTML=statuses.map(st=>{let ts=data.tasks.filter(t=>t.status===st&&(!pid||t.projectId===pid));return `<div class="kanban-col"><div class="kanban-head"><span class="pill ${statusClass(st)}">${st}</span><span class="count">${ts.length}</span></div>${ts.map(t=>`<div class="kanban-card"><span class="pill ${t.priority==='Alta'||t.priority==='Crítica'?'red':t.priority==='Media'?'amber':'gray'}">${esc(t.priority)}</span><h3>${esc(t.title)}</h3><p>${esc(projectName(t.projectId))} · ${dateLabel(t.due)}</p><div class="kanban-foot"><div class="person"><span class="mini-avatar">${esc(initials(personName(t.assignee)))}</span><span class="tiny">${esc(personName(t.assignee))}</span></div><select class="field status-select ${statusClass(t.status)}" aria-label="Cambiar estado" style="padding:5px 6px;font-size:10px;max-width:120px" data-kanban-status="${t.id}">${statuses.map(s=>`<option ${s===t.status?'selected':''}>${s}</option>`).join('')}</select></div></div>`).join('')||'<div class="muted tiny" style="padding:12px 3px">Sin tareas</div>'}</div>`}).join('');
+ document.querySelectorAll('[data-kanban-status]').forEach(s=>s.onchange=()=>{let t=data.tasks.find(t=>t.id===s.dataset.kanbanStatus);if(t){t.status=s.value;save();toast('Tarea movida a '+s.value)}});
+}
+function renderGantt(){
+ let pid=$('ganttProjectFilter')?.value||'',ts=data.tasks.filter(t=>!pid||t.projectId===pid).sort((a,b)=>(a.start||a.due||'').localeCompare(b.start||b.due||''));
+ if(!ts.length){$('ganttChart').innerHTML='<div class="empty">No hay tareas para mostrar.</div>';return}
+ let starts=ts.map(t=>new Date((t.start||t.due||iso(today))+'T12:00:00').getTime()),base=new Date(Math.min(...starts));base.setDate(base.getDate()-Math.min(2,base.getDate()-1));base.setHours(12,0,0,0);
+ let days=Array.from({length:14},(_,i)=>{let d=new Date(base);d.setDate(d.getDate()+i);return d});
+ let dayMs=86400000;
+ $('ganttChart').innerHTML=`<div class="gantt-head"><div>Actividad</div>${days.map(d=>`<div style="text-align:center">${d.getDate()}<br>${d.toLocaleDateString('es-CL',{weekday:'short'}).slice(0,2)}</div>`).join('')}</div>`+ts.map(t=>{let st=new Date((t.start||t.due||iso(today))+'T12:00:00'),en=new Date((t.due||t.start||iso(today))+'T12:00:00');if(en<st)en=st;let off=Math.max(0,Math.round((st-base)/dayMs)),dur=Math.max(1,Math.round((en-st)/dayMs)+1),left=Math.max(0,off)/14*100,width=Math.min(dur,14-Math.max(0,off))/14*100,cl=t.status==='Completada'?'green':t.priority==='Crítica'?'red':t.priority==='Alta'?'':'amber';return `<div class="gantt-row"><div class="gantt-label" title="${esc(t.title)}">${esc(t.title.length>29?t.title.slice(0,27)+'…':t.title)}</div>${days.map(()=>'<div class="gantt-cell"></div>').join('')}<div class="bar ${cl}" title="${esc(t.title)} · ${dateLabel(t.start)} — ${dateLabel(t.due)}" style="left:calc(220px + ${left}%);width:${Math.max(1,width)}%;display:none"></div></div>`}).join('');
+ // Place bars in a dedicated overlay grid per row so the label and dates remain aligned.
+ const rows=$('ganttChart').querySelectorAll('.gantt-row');
+ rows.forEach((row,i)=>{let t=ts[i],st=new Date((t.start||t.due||iso(today))+'T12:00:00'),en=new Date((t.due||t.start||iso(today))+'T12:00:00');if(en<st)en=st;let off=Math.round((st-base)/dayMs),dur=Math.max(1,Math.round((en-st)/dayMs)+1),start=Math.max(0,off),end=Math.min(14,off+dur);if(end<=0||start>=14)return;let bar=document.createElement('div');bar.className='bar '+(t.status==='Completada'?'green':t.priority==='Crítica'?'red':t.priority==='Alta'?'':'amber');bar.style.left=`calc(220px + ${(start/14)*100}%)`;bar.style.width=`${Math.max(1,((end-start)/14)*100)}%`;bar.style.display='block';bar.title=`${t.title}: ${dateLabel(t.start)} — ${dateLabel(t.due)}`;row.style.position='relative';row.appendChild(bar)});
+}
+function renderMilestones(){
+ const list=[...data.milestones].sort((a,b)=>(a.date||'').localeCompare(b.date||''));
+ $('milestonesTable').innerHTML=list.length?list.map(m=>`<tr><td><strong>${esc(m.title)}</strong><div class="muted tiny">${esc(m.id)}</div></td><td>${esc(projectName(m.projectId))}</td><td>${dateLabel(m.date)}</td><td>${esc(personName(m.owner))}</td><td><span class="pill ${statusClass(m.status)}">${esc(m.status)}</span></td><td><button class="btn" data-edit-milestone="${m.id}">Editar</button> <button class="btn" data-delete-milestone="${m.id}">Eliminar</button></td></tr>`).join(''):'<tr><td colspan="6" class="empty">Aún no hay hitos.</td></tr>';
+ document.querySelectorAll('[data-edit-milestone]').forEach(b=>b.onclick=()=>openForm('milestone',b.dataset.editMilestone));
+ document.querySelectorAll('[data-delete-milestone]').forEach(b=>b.onclick=()=>{if(confirm('¿Eliminar este hito?')){data.milestones=data.milestones.filter(m=>m.id!==b.dataset.deleteMilestone);save();toast('Hito eliminado')}});
+}
+function renderTeam(){
+ $('teamCards').innerHTML=data.people.map(p=>{let assigned=data.tasks.filter(t=>t.assignee===p.id),pending=assigned.filter(t=>t.status!=='Completada').length;return `<div class="card"><div style="display:flex;align-items:center;gap:12px"><div class="avatar">${esc(initials(p.name))}</div><div style="flex:1"><h2>${esc(p.name)}</h2><div class="muted tiny">${esc(p.role)}</div></div><button class="btn" data-edit-person="${p.id}">Editar</button></div><p class="muted" style="font-size:12px;margin:17px 0">${esc(p.skills||'Sin competencias registradas')}</p><div style="display:flex;gap:12px"><div style="background:#f7f8fc;border-radius:9px;padding:10px;flex:1"><div class="muted tiny">Asignadas</div><strong style="font-size:20px">${assigned.length}</strong></div><div style="background:#f7f8fc;border-radius:9px;padding:10px;flex:1"><div class="muted tiny">Pendientes</div><strong style="font-size:20px">${pending}</strong></div></div><div style="margin-top:14px"><button class="btn" data-person-tasks="${p.id}">Ver tareas</button> <button class="btn" data-delete-person="${p.id}">Eliminar</button></div></div>`}).join('')||'<div class="card empty">Agrega integrantes para comenzar.</div>';
+ document.querySelectorAll('[data-edit-person]').forEach(b=>b.onclick=()=>openForm('person',b.dataset.editPerson));
+ document.querySelectorAll('[data-person-tasks]').forEach(b=>b.onclick=()=>{navTo('tasks');$('taskSearch').value=personName(b.dataset.personTasks);renderTasks()});
+ document.querySelectorAll('[data-delete-person]').forEach(b=>b.onclick=()=>{let id=b.dataset.deletePerson;if(data.tasks.some(t=>t.assignee===id)){toast('Reasigna sus tareas antes de eliminar a esta persona');return}if(confirm('¿Eliminar esta persona?')){data.people=data.people.filter(p=>p.id!==id);save()}});
+}
+function renderPeople(){
+ $('peopleTable').innerHTML=data.people.length?data.people.map(p=>`<tr><td><div class="person"><span class="mini-avatar">${esc(initials(p.name))}</span><strong>${esc(p.name)}</strong></div></td><td>${esc(p.role)}</td><td><button class="btn" data-edit-person-simple="${p.id}">Editar</button> <button class="btn" data-delete-person-simple="${p.id}">Eliminar</button></td></tr>`).join(''):'<tr><td colspan="3" class="empty">Aún no hay personas registradas.</td></tr>';
+ document.querySelectorAll('[data-edit-person-simple]').forEach(b=>b.onclick=()=>openForm('person',b.dataset.editPersonSimple));
+ document.querySelectorAll('[data-delete-person-simple]').forEach(b=>b.onclick=()=>{const id=b.dataset.deletePersonSimple;if(data.tasks.some(t=>t.assignee===id)||data.projects.some(p=>p.owner===id)||data.milestones.some(m=>m.owner===id)){toast('Esta persona tiene elementos asignados. Reasígnalos antes de eliminarla.');return}if(confirm('¿Eliminar esta persona?')){data.people=data.people.filter(p=>p.id!==id);save()}});
+}
+function renderReports(){
+ let total=data.tasks.length,done=data.tasks.filter(t=>t.status==='Completada').length,late=data.tasks.filter(t=>t.status!=='Completada'&&t.due&&t.due<iso(today)).length,high=data.tasks.filter(t=>t.priority==='Alta'||t.priority==='Crítica').length;
+ $('reportKpis').innerHTML=kpi('Tareas completadas',done,'De '+total+' tareas','✓')+kpi('Cumplimiento',total?Math.round(done/total*100)+'%':'0%','Tasa de finalización','▦')+kpi('Atrasadas',late,'No completadas con fecha vencida','◷')+kpi('Alta prioridad',high,'Alta o crítica','⚑');
+ const draw=(items)=>items.map(([name,n,color])=>`<div class="project-row"><div class="project-name">${name}</div><div class="progress"><span style="width:${total?Math.round(n/total*100):0}%;background:${color}"></span></div><div class="pct">${n}</div></div>`).join('');
+ $('statusBreakdown').innerHTML=draw(['Pendiente','En curso','En revisión','Completada'].map((s,i)=>[s,data.tasks.filter(t=>t.status===s).length,['#9aa3b7','#2874c8','#e4a43b','#16866a'][i]]));
+ $('priorityBreakdown').innerHTML=draw(['Crítica','Alta','Media','Baja'].map((s,i)=>[s,data.tasks.filter(t=>t.priority===s).length,['#d44858','#e46b72','#e4a43b','#9aa3b7'][i]]));
+}
+function renderAll(){populateProjectFilters();renderDashboard();renderProjects();renderTasks();renderKanban();renderGantt();renderMilestones();renderTeam();renderPeople();renderReports()}
+const fields={
+ project:[['name','Nombre del proyecto','text',true],['description','Descripción','textarea',false],['owner','Responsable','person',true],['status','Estado','select:Activo|Planificación|En riesgo|Completado',true],['start','Fecha de inicio','date',true],['end','Fecha objetivo','date',true]],
+ task:[['title','Nombre de la tarea','text',true],['projectId','Proyecto (opcional)','project',false],['assignee','Responsable','person',true],['priority','Prioridad','select:Baja|Media|Alta|Crítica',true],['status','Estado','select:Pendiente|En curso|En revisión|Completada',true],['start','Fecha de inicio','date',true],['due','Fecha límite','date',true],['estimate','Esfuerzo estimado (horas)','number',false],['description','Descripción / criterios de aceptación','textarea',false]],
+ milestone:[['title','Nombre del hito','text',true],['projectId','Proyecto','project',true],['date','Fecha objetivo','date',true],['owner','Responsable','person',true],['status','Estado','select:Pendiente|En curso|En riesgo|Completado',true]],
+ person:[['name','Nombre completo','text',true],['role','Cargo','text',true]]
+};
+function optionsFor(kind){if(kind==='person')return data.people.map(p=>[p.id,p.name]);if(kind==='project')return data.projects.map(p=>[p.id,p.name]);return []}
+function openForm(type,id=null){
+ formType=type;editing=id;let record=id?(type==='project'?project(id):type==='task'?data.tasks.find(t=>t.id===id):type==='milestone'?data.milestones.find(m=>m.id===id):person(id)):null;
+ $('modalTitle').textContent=(id?'Editar ':'Nuevo ')+({project:'proyecto',task:'tarea',milestone:'hito',person:'integrante'}[type]);
+ $('formFields').innerHTML=fields[type].map(([key,label,kind,required])=>{let value=record?.[key]??(key==='status'?(type==='project'?'Activo':type==='task'?'Pendiente':'Pendiente'):key==='priority'?'Media':key==='start'?iso(today):key==='end'||key==='due'||key==='date'?addDays(7):key==='estimate'?'' :'');
+ let input='';if(kind==='textarea')input=`<textarea id="f-${key}" ${required?'required':''}>${esc(value)}</textarea>`;
+ else if(kind.startsWith('select:'))input=`<select id="f-${key}" ${required?'required':''}>${kind.slice(7).split('|').map(s=>`<option ${s===value?'selected':''}>${s}</option>`).join('')}</select>`;
+ else if(kind==='person'||kind==='project'){let opts=optionsFor(kind),placeholder=kind==='project'&&key==='projectId'?'Sin proyecto':'Seleccionar…';input=`<select id="f-${key}" ${required?'required':''}><option value="">${placeholder}</option>${opts.map(([v,l])=>`<option value="${v}" ${v===value?'selected':''}>${esc(l)}</option>`).join('')}</select>`}
+ else input=`<input id="f-${key}" type="${kind}" value="${esc(value)}" ${required?'required':''} ${kind==='number'?'min="0"':''}>`;
+ return `<div class="form-group ${kind==='textarea'?'full':''}"><label for="f-${key}">${label}${required?' *':''}</label>${input}</div>`}).join('');
+ $('modalBackdrop').classList.add('open');
+}
+function closeForm(){$('modalBackdrop').classList.remove('open');editing=null;formType=null}
+$('modalClose').onclick=closeForm;$('modalCancel').onclick=closeForm;$('modalBackdrop').addEventListener('click',e=>{if(e.target===$('modalBackdrop'))closeForm()});
+$('entityForm').onsubmit=e=>{e.preventDefault();let submittedType=formType;let obj={};fields[formType].forEach(([key,label,kind])=>{let el=$('f-'+key);obj[key]=kind==='number'?(el.value?Number(el.value):0):el.value});
+ if(formType==='project'&&obj.end<obj.start){toast('La fecha objetivo debe ser igual o posterior al inicio');return}
+ if(formType==='task'&&obj.due<obj.start){toast('La fecha límite debe ser igual o posterior al inicio');return}
+ if(editing){let arr=formType==='project'?data.projects:formType==='task'?data.tasks:formType==='milestone'?data.milestones:data.people;let old=arr.find(x=>x.id===editing);Object.assign(old,obj)}
+ else if(formType==='project')data.projects.push({id:uid('PR'),...obj,color:'purple'});
+ else if(formType==='task')data.tasks.push({id:uid('T'),...obj});
+ else if(formType==='milestone')data.milestones.push({id:uid('M'),...obj});
+ else data.people.push({id:uid('P'),...obj});
+ closeForm();save();toast('Cambios guardados correctamente');if(submittedType==='task'&&obj.due)showScheduleAlert(obj.title,obj.due,'task');else if(submittedType==='milestone'&&obj.date)showScheduleAlert(obj.title,obj.date,'milestone');
+};
+function deleteProject(id){if(data.tasks.some(t=>t.projectId===id)||data.milestones.some(m=>m.projectId===id)){toast('El proyecto tiene tareas o hitos vinculados. Elimínalos o reasígnalos primero.');return}if(confirm('¿Eliminar este proyecto?')){data.projects=data.projects.filter(p=>p.id!==id);save();toast('Proyecto eliminado')}}
+$('newProjectBtn').onclick=$('newProjectDash').onclick=()=>openForm('project');
+$('newTaskBtn').onclick=$('newTaskDash').onclick=$('topNewTask').onclick=$('kanbanNew').onclick=$('ganttNew').onclick=()=>openForm('task');
+$('newMilestoneBtn').onclick=()=>openForm('milestone');$('newPersonBtn').onclick=$('addPersonBtn').onclick=()=>openForm('person');
+['projectSearch','projectStatusFilter'].forEach(id=>$(id).addEventListener('input',renderProjects));
+['taskSearch','taskProjectFilter','taskStatusFilter'].forEach(id=>$(id).addEventListener('input',renderTasks));
+$('kanbanProjectFilter').onchange=renderKanban;$('ganttProjectFilter').onchange=renderGantt;
+function csvEscape(v){return '"'+String(v??'').replace(/"/g,'""')+'"'}
+function exportCSV(){let rows=[['ID','Tarea','Proyecto','Responsable','Prioridad','Estado','Inicio','Fecha límite','Horas estimadas','Descripción'],...data.tasks.map(t=>[t.id,t.title,projectName(t.projectId),personName(t.assignee),t.priority,t.status,t.start,t.due,t.estimate,t.description])];let csv='\uFEFF'+rows.map(r=>r.map(csvEscape).join(';')).join('\r\n');let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8;'}));a.download='nexus_tareas.csv';a.click();URL.revokeObjectURL(a.href);toast('Exportación CSV preparada')}
+$('exportBtn').onclick=$('reportExport').onclick=exportCSV;
+document.querySelectorAll('[data-prompt]').forEach(b=>b.onclick=()=>{ $('chatInput').value=b.dataset.prompt;$('chatForm').requestSubmit()});
+function agentAnswer(q){
+ const s=q.toLowerCase(),tasks=data.tasks,late=tasks.filter(t=>t.status!=='Completada'&&t.due&&t.due<iso(today)),pending=tasks.filter(t=>t.status!=='Completada'),done=tasks.filter(t=>t.status==='Completada'),ms=data.milestones.filter(m=>m.status!=='Completado').sort((a,b)=>(a.date||'').localeCompare(b.date||''));
+ const requestedDate=(s.match(/\b(\d{4}-\d{2}-\d{2})\b/)||[])[1]||(()=>{const m=s.match(/\b(\d{1,2})[/-](\d{1,2})(?:[/-](\d{4}))?\b/);if(!m)return '';let y=Number(m[3]||today.getFullYear()),month=Number(m[2]),day=Number(m[1]);if(!m[3]&&new Date(y,month-1,day)<today)y++;return iso(new Date(y,month-1,day))})();
+ const queryDate=requestedDate||(s.includes('mañana')?addDays(1):s.includes('hoy')?'':null);
+ const matchedPerson=data.people.slice().sort((a,b)=>b.name.length-a.name.length).find(p=>s.includes(p.name.toLowerCase())||p.name.toLowerCase().split(/\s+/).some(part=>part.length>2&&new RegExp(`\\b${part}\\b`,'i').test(s)));
+ if(matchedPerson&&(queryDate!==null||/\b(hoy|mañana|fecha|día|dia|tarea|tareas|agenda|programad)/.test(s))){
+  const day=queryDate===null||queryDate===''?iso(today):queryDate;
+  const assigned=tasks.filter(t=>t.assignee===matchedPerson.id&&t.due===day).sort((a,b)=>(a.start||'').localeCompare(b.start||''));
+  const heading=day===iso(today)?'hoy':dateLabel(day);
+  return assigned.length?`Tareas de <strong>${esc(matchedPerson.name)}</strong> para <strong>${heading}</strong>:<br>${assigned.map(t=>`• ${esc(t.title)} — ${esc(t.status)}, ${esc(t.priority)}${t.start&&t.start!==day?` (inicia ${dateLabel(t.start)})`:''}`).join('<br>')}`:`<strong>${esc(matchedPerson.name)}</strong> no tiene tareas con fecha límite para ${heading}.`;
+ }
+ if(/\b(hoy|mañana|\d{1,2}[/-]\d{1,2}|\d{4}-\d{2}-\d{2})\b/.test(s)){
+  const day=queryDate||iso(today),dayTasks=tasks.filter(t=>t.status!=='Completada'&&t.due===day);
+  if(dayTasks.length)return `Tareas pendientes para <strong>${day===iso(today)?'hoy':dateLabel(day)}</strong>:<br>${dayTasks.map(t=>`• ${esc(t.title)} — ${esc(personName(t.assignee))} (${esc(t.status)})`).join('<br>')}`;
+  if(/\b(hoy|mañana|\d{1,2}[/-]\d{1,2}|\d{4}-\d{2}-\d{2})\b/.test(s))return `No hay tareas pendientes con fecha límite para ${day===iso(today)?'hoy':dateLabel(day)}.`;
+ }
+ if(/atras|vencid|retras|demor/.test(s))return late.length?`Detecté <strong>${late.length} tarea(s) atrasada(s)</strong>:<br>${late.map(t=>'• '+esc(t.title)+' — '+esc(personName(t.assignee))+' (fecha límite: '+dateLabel(t.due)+')').join('<br>')}<br><br>Recomendación: confirmar el estado real, identificar bloqueos y revisar si estas tareas afectan un hito.`:'No hay tareas vencidas sin completar según las fechas registradas.';
+ if(/hito|fecha clave|próxim/.test(s))return ms.length?`Próximos hitos registrados:<br>${ms.slice(0,6).map(m=>'• '+esc(m.title)+' — '+dateLabel(m.date)+' ('+esc(m.status)+')').join('<br>')}<br><br>Confirma que cada hito tenga criterios de aceptación y responsable.`:'No hay hitos pendientes registrados.';
+ if(/equipo|carga|persona|responsable/.test(s))return data.people.map(p=>{let n=tasks.filter(t=>t.assignee===p.id&&t.status!=='Completada').length;return '• '+esc(p.name)+': '+n+' tarea(s) pendiente(s)'}).join('<br>')+'<br><br>La carga se calcula por cantidad de tareas, no por esfuerzo o disponibilidad real.';
+ if(/resumen|estado general|proyecto/.test(s)){let pct=tasks.length?Math.round(done.length/tasks.length*100):0;return `<strong>Resumen actual</strong><br>• Proyectos: ${data.projects.length}<br>• Tareas: ${tasks.length}<br>• Completadas: ${done.length} (${pct}%)<br>• Pendientes / en ejecución / revisión: ${pending.length}<br>• Atrasadas: ${late.length}<br>• Hitos pendientes: ${ms.length}<br><br>Prioridad sugerida: revisar primero las tareas vencidas y aquellas que bloqueen hitos cercanos.`}
+ if(/organ|planific|desglos|crear|divide|propuesta/.test(s))return `Para organizar el trabajo pendiente, sugiero:<br>1. Confirmar el resultado esperado y los criterios de aceptación.<br>2. Desglosar cada entregable en tareas pequeñas (idealmente de 1–3 días).<br>3. Asignar un único responsable y colaboradores cuando corresponda.<br>4. Registrar dependencias y estimación de esfuerzo.<br>5. Revisar la capacidad del equipo antes de comprometer fechas.<br>6. Definir hitos verificables y revisar el tablero semanalmente.<br><br>Esta demo no crea tareas a partir del chat; utiliza los formularios para guardar cambios.`;
+ return 'Puedo consultar el resumen de proyectos, las tareas atrasadas, los hitos próximos y la carga asignada. También puedo sugerir una estructura de planificación. Para acciones automáticas y razonamiento avanzado se debe conectar un servicio de IA mediante un backend seguro.';
+}
+$('chatForm').onsubmit=e=>{e.preventDefault();let q=$('chatInput').value.trim();if(!q)return;let u=document.createElement('div');u.className='bubble user';u.textContent=q;$('chatMessages').appendChild(u);$('chatInput').value='';let a=document.createElement('div');a.className='bubble ai';a.innerHTML='<strong>✧ Project Agent</strong>'+agentAnswer(q);$('chatMessages').appendChild(a);$('chatMessages').scrollTop=$('chatMessages').scrollHeight};
+renderAll();
+</script>
+</body>
+</html>
