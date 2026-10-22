@@ -1,4 +1,4 @@
-# Programación de convivencia escolar — Colegio Saint George Angol
+# Cronograma de convivencia escolar — Colegio Saint George Angol
 
 Esta es una aplicación web estática (HTML, CSS y JavaScript) que puedes abrir y editar en Visual Studio Code.
 
