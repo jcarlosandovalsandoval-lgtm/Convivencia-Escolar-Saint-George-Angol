@@ -290,7 +290,7 @@ function renderTasks(){
 function renderCalendar(){
  const y=calendarCursor.getFullYear(),m=calendarCursor.getMonth(),first=new Date(y,m,1),offset=(first.getDay()+6)%7;
  $('calendarMonth').textContent=first.toLocaleDateString('es-CL',{month:'long'});$('calendarYear').textContent=y;
- const weekdays=['Lun','Mar','Mié','Jue','Vie','Sáb','Dom'];
+ const weekdays=['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'];
  let html=weekdays.map(d=>`<div class="calendar-weekday">${d}</div>`).join('');
  for(let i=0;i<42;i++){
   const date=new Date(y,m,1-offset+i),key=iso(date),outside=date.getMonth()!==m,isToday=key===iso(new Date());
