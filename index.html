@@ -42,6 +42,8 @@ table{border-collapse:collapse;width:100%;min-width:850px}th,td{text-align:left;
 .gantt-card{overflow:auto}.gantt{min-width:760px}.gantt-head,.gantt-row{display:grid;grid-template-columns:220px repeat(14,minmax(25px,1fr));align-items:center}.gantt-head{font-size:10px;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:10px}.gantt-row{height:47px;border-bottom:1px solid #f0f2f7}.gantt-label{font-size:11px;font-weight:650;padding-right:10px}.gantt-cell{height:100%;border-left:1px solid #f3f4f8;position:relative}.bar{height:13px;border-radius:6px;background:var(--primary);position:absolute;top:16px;min-width:7px}.bar.green{background:#21a17b}.bar.amber{background:#e4a43b}.bar.red{background:#db5866}.milestone{position:absolute;top:14px;width:15px;height:15px;background:#e4a43b;transform:rotate(45deg);border-radius:3px}
 .agent-layout{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(280px,.7fr);gap:18px}.chat-card{display:flex;flex-direction:column;min-height:480px}.chat-messages{flex:1;display:flex;flex-direction:column;gap:13px;padding:4px 0 18px}.bubble{max-width:90%;padding:12px 14px;border-radius:12px;font-size:12px;line-height:1.6}.bubble.ai{background:#f1f1ff;border:1px solid #e4e3ff;align-self:flex-start}.bubble.user{background:#e8f3ff;align-self:flex-end}.bubble strong{display:block;margin-bottom:4px}.chat-form{display:flex;gap:8px;border-top:1px solid var(--line);padding-top:14px}.chat-form input{flex:1;min-width:0}.suggestions{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:13px}.suggestion{border:1px solid #e2e3f8;background:#fafaff;color:#4d4ac0;border-radius:20px;padding:7px 10px;font-size:11px}.notice{background:#fff8e8;border:1px solid #f5e4bb;color:#825c18;padding:12px;border-radius:10px;font-size:11px;line-height:1.55}
 .empty{padding:35px;text-align:center;color:var(--muted)}
+.team-members{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}.team-member{display:flex;align-items:center;gap:8px;padding:7px 9px;border:1px solid var(--line);border-radius:10px;background:#fafaf8;font-size:11px}.team-member .mini-avatar{flex:none}.team-member small{display:block;color:var(--muted);font-size:9px}
+.team-picker{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;max-height:210px;overflow:auto;padding:7px;border:1px solid var(--line);border-radius:10px}.team-picker-option{display:flex!important;align-items:center;gap:8px;padding:8px;border-radius:8px;background:#fafaf8;cursor:pointer}.team-picker-option input{width:auto!important;flex:none;accent-color:var(--primary)}.team-picker-option span{font-size:11px}.team-picker-option small{display:block;color:var(--muted);font-size:9px}
 .calendar-layout{display:grid;grid-template-columns:minmax(0,1fr);align-items:start}.calendar-main{min-width:0;padding:18px;background:#fff7fa;border:1px solid #e8d9df;border-radius:5px}.calendar-heading{display:flex;align-items:flex-end;justify-content:space-between;margin:0 2px 12px;color:#30272b}.calendar-month{font-family:Georgia,'Times New Roman',serif;font-size:clamp(30px,4vw,48px);line-height:1;text-transform:uppercase;letter-spacing:-1.5px}.calendar-year{font-family:Georgia,'Times New Roman',serif;font-size:clamp(26px,3vw,39px);font-weight:400;line-height:1.05}.calendar-controls{display:flex;align-items:center;gap:7px;margin-bottom:10px}.calendar-controls .btn{padding:6px 11px;background:#fff9fb;border-color:#e4d5db}.calendar-wrap{overflow-x:auto}.calendar{min-width:640px;border-top:1px solid #a99aa0;border-left:1px solid #a99aa0;background:#fff9fb}.calendar-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr))}.calendar-weekday{padding:8px 4px;text-align:center;background:#f5dfe8;color:#3e3439;font-size:9px;font-weight:800;text-transform:uppercase;border-right:1px solid #a99aa0;border-bottom:1px solid #a99aa0}.calendar-day{min-height:0;aspect-ratio:1/1;padding:6px;border-right:1px solid #a99aa0;border-bottom:1px solid #a99aa0;background:#fff9fb}.calendar-day:nth-child(7n){border-right:0}.calendar-day.outside{background:#fbf2f5;color:#aaa0a4}.calendar-day.today{background:#fcebf1}.calendar-day.focus-date{box-shadow:inset 0 0 0 2px #a25472}.calendar-day-number{display:flex;justify-content:flex-start;margin-bottom:4px}.calendar-day-number span{min-width:20px;height:20px;display:grid;place-items:center;font-size:10px;font-weight:600}.calendar-day.today .calendar-day-number span{background:#a25472;color:#fff;border-radius:50%}.calendar-event{display:block;width:100%;margin:2px 0;padding:3px 4px;border:0;border-left:2px solid #a25472;border-radius:2px;background:#f8e8ee;color:#30272b;text-align:left;font-size:9px;line-height:1.25;overflow:hidden}.calendar-event:hover{background:#f1dbe4}.calendar-event.green{border-left-color:#38745a}.calendar-event.amber{border-left-color:#a87935}.calendar-event.red{border-left-color:#bb5d55}.calendar-event strong,.calendar-event span{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.calendar-event span{color:#70666a;font-size:8px}.calendar-more{color:#70666a;font-size:8px;padding:2px 3px}
 .modal-backdrop{position:fixed;inset:0;background:rgba(16,20,40,.48);z-index:20;display:none;align-items:center;justify-content:center;padding:20px}.modal-backdrop.open{display:flex}.modal{width:min(620px,100%);max-height:90vh;overflow:auto;background:white;border-radius:16px;box-shadow:0 20px 70px #10142c40;padding:23px}.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.modal-head h2{margin:0;font-size:18px}.close{border:0;background:#f0f2f8;border-radius:8px;width:32px;height:32px;font-size:18px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.form-group{display:grid;gap:6px}.form-group.full{grid-column:1/-1}.form-group label{font-size:11px;font-weight:750;color:#59627a}.form-group input,.form-group select,.form-group textarea{border:1px solid var(--line);border-radius:9px;padding:10px 11px;width:100%;background:#fff;color:var(--text)}.form-group textarea{min-height:75px;resize:vertical}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:20px}
 .toast{position:fixed;right:22px;bottom:22px;background:#1c2340;color:white;padding:12px 17px;border-radius:10px;box-shadow:var(--shadow);z-index:30;display:none;font-size:12px}.toast.show{display:block}
@@ -165,7 +167,7 @@ h1{font-size:29px;letter-spacing:-.9px}.subtitle{font-size:13px}
         <div class="table-wrap"><table><thead><tr><th>Hito</th><th>Proyecto</th><th>Fecha objetivo</th><th>Responsable</th><th>Estado</th><th>Acciones</th></tr></thead><tbody id="milestonesTable"></tbody></table></div>
       </section>
       <section class="view" id="view-team">
-        <div class="page-head"><div><h1>Equipo</h1><p class="subtitle">Personas, funciones y distribución de tareas asignadas.</p></div><div class="head-buttons"><button class="btn primary" id="newPersonBtn">＋ Agregar persona</button></div></div>
+        <div class="page-head"><div><h1>Equipos de trabajo</h1><p class="subtitle">Organiza a las personas en equipos de convivencia escolar.</p></div><div class="head-buttons"><button class="btn primary" id="newTeamBtn">＋ Nuevo equipo</button></div></div>
         <div class="grid-2" id="teamCards"></div>
       </section>
       <section class="view" id="view-people">
@@ -207,9 +209,10 @@ const dateLabel=(s)=>{if(!s)return 'Sin fecha';const d=new Date(s+'T12:00:00');r
 const shortDate=(s)=>{if(!s)return {day:'—',month:'S/F'};const d=new Date(s+'T12:00:00');return {day:d.getDate(),month:d.toLocaleDateString('es-CL',{month:'short'}).replace('.','').toUpperCase()}};
 const esc=(s)=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const uid=(prefix)=>prefix+'-'+Math.random().toString(36).slice(2,7).toUpperCase();
-const defaultData=()=>({people:[],projects:[],tasks:[],milestones:[]});
+const defaultData=()=>({people:[],projects:[],tasks:[],milestones:[],teams:[]});
 let data;
 try{data=JSON.parse(localStorage.getItem(STORAGE_KEY))||defaultData()}catch(e){data=defaultData()}
+if(!Array.isArray(data.teams))data.teams=[];
 document.getElementById('loginForm').addEventListener('submit',async e=>{
  e.preventDefault();const error=document.getElementById('loginError');
  if(!cloud){error.textContent='Falta configurar Supabase en index.html. Sigue las instrucciones de README.md.';return}
@@ -231,14 +234,14 @@ const save=()=>{localStorage.setItem(STORAGE_KEY,JSON.stringify(data));renderAll
 async function loadCloudData(){
  const {data:row,error}=await cloud.from('shared_app_data').select('payload').eq('id','school').maybeSingle();
  if(error)throw error;
- if(row?.payload){data=row.payload;localStorage.setItem(STORAGE_KEY,JSON.stringify(data))}
- else{const local=JSON.parse(localStorage.getItem(STORAGE_KEY)||'null');data=local||defaultData();const {error:saveError}=await cloud.from('shared_app_data').insert({id:'school',payload:data});if(saveError)throw saveError}
+ if(row?.payload){data=row.payload;if(!Array.isArray(data.teams))data.teams=[];localStorage.setItem(STORAGE_KEY,JSON.stringify(data))}
+ else{const local=JSON.parse(localStorage.getItem(STORAGE_KEY)||'null');data=local||defaultData();if(!Array.isArray(data.teams))data.teams=[];const {error:saveError}=await cloud.from('shared_app_data').insert({id:'school',payload:data});if(saveError)throw saveError}
  renderAll();
 }
 function startCloudSync(){
  if(cloudSyncChannel)return;
  cloudSyncChannel=cloud.channel('school-data-sync').on('postgres_changes',{event:'*',schema:'public',table:'shared_app_data',filter:'id=eq.school'},event=>{
-  if(event.new?.payload){data=event.new.payload;localStorage.setItem(STORAGE_KEY,JSON.stringify(data));renderAll()}
+  if(event.new?.payload){data=event.new.payload;if(!Array.isArray(data.teams))data.teams=[];localStorage.setItem(STORAGE_KEY,JSON.stringify(data));renderAll()}
  }).subscribe();
 }
 function toast(msg){$('toast').textContent=msg;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),2600)}
@@ -253,7 +256,7 @@ function showScheduleAlert(title,date,kind){
 }
 function closeScheduleAlert(){$('scheduleAlert').classList.remove('open')}
 $('scheduleAlertClose').onclick=closeScheduleAlert;$('scheduleAlert').onclick=e=>{if(e.target===$('scheduleAlert'))closeScheduleAlert()};document.addEventListener('keydown',e=>{if(e.key==='Escape')closeScheduleAlert()});
-function navTo(view){currentView=view;document.querySelectorAll('.view').forEach(x=>x.classList.toggle('active',x.id==='view-'+view));document.querySelectorAll('#nav button,[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===view));$('breadcrumb').textContent=({dashboard:'Resumen ejecutivo',projects:'Proyectos',tasks:'Tareas',calendar:'Calendario',kanban:'Tablero Kanban',timeline:'Cronograma Gantt',milestones:'Hitos',team:'Equipo',people:'Personas',agent:'Project Agent',reports:'Indicadores'})[view]||view;$('sidebar').classList.remove('open');renderAll()}
+function navTo(view){currentView=view;document.querySelectorAll('.view').forEach(x=>x.classList.toggle('active',x.id==='view-'+view));document.querySelectorAll('#nav button,[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===view));$('breadcrumb').textContent=({dashboard:'Resumen ejecutivo',projects:'Proyectos',tasks:'Tareas',calendar:'Calendario',kanban:'Tablero Kanban',timeline:'Cronograma Gantt',milestones:'Hitos',team:'Equipos de trabajo',people:'Personas',agent:'Project Agent',reports:'Indicadores'})[view]||view;$('sidebar').classList.remove('open');renderAll()}
 document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>navTo(b.dataset.view)));
 document.querySelectorAll('[data-goto]').forEach(b=>b.addEventListener('click',()=>navTo(b.dataset.goto)));
 $('mobileMenu').onclick=()=>$('sidebar').classList.toggle('open');
@@ -324,15 +327,15 @@ function renderMilestones(){
  document.querySelectorAll('[data-delete-milestone]').forEach(b=>b.onclick=()=>{if(confirm('¿Eliminar este hito?')){data.milestones=data.milestones.filter(m=>m.id!==b.dataset.deleteMilestone);save();toast('Hito eliminado')}});
 }
 function renderTeam(){
- $('teamCards').innerHTML=data.people.map(p=>{let assigned=data.tasks.filter(t=>t.assignee===p.id),pending=assigned.filter(t=>t.status!=='Completada').length;return `<div class="card"><div style="display:flex;align-items:center;gap:12px"><div class="avatar">${esc(initials(p.name))}</div><div style="flex:1"><h2>${esc(p.name)}</h2><div class="muted tiny">${esc(p.role)}</div></div><button class="btn" data-edit-person="${p.id}">Editar</button></div><p class="muted" style="font-size:12px;margin:17px 0">${esc(p.skills||'Sin competencias registradas')}</p><div style="display:flex;gap:12px"><div style="background:#f7f8fc;border-radius:9px;padding:10px;flex:1"><div class="muted tiny">Asignadas</div><strong style="font-size:20px">${assigned.length}</strong></div><div style="background:#f7f8fc;border-radius:9px;padding:10px;flex:1"><div class="muted tiny">Pendientes</div><strong style="font-size:20px">${pending}</strong></div></div><div style="margin-top:14px"><button class="btn" data-person-tasks="${p.id}">Ver tareas</button> <button class="btn" data-delete-person="${p.id}">Eliminar</button></div></div>`}).join('')||'<div class="card empty">Agrega integrantes para comenzar.</div>';
- document.querySelectorAll('[data-edit-person]').forEach(b=>b.onclick=()=>openForm('person',b.dataset.editPerson));
- document.querySelectorAll('[data-person-tasks]').forEach(b=>b.onclick=()=>{navTo('tasks');$('taskSearch').value=personName(b.dataset.personTasks);renderTasks()});
- document.querySelectorAll('[data-delete-person]').forEach(b=>b.onclick=()=>{let id=b.dataset.deletePerson;if(data.tasks.some(t=>t.assignee===id)){toast('Reasigna sus tareas antes de eliminar a esta persona');return}if(confirm('¿Eliminar esta persona?')){data.people=data.people.filter(p=>p.id!==id);save()}});
+ const teams=data.teams||[];
+ $('teamCards').innerHTML=teams.length?teams.map(t=>{const members=(t.members||[]).map(person).filter(Boolean);return `<article class="card"><div class="card-head"><span class="pill blue">${members.length} ${members.length===1?'integrante':'integrantes'}</span><div><button class="btn" data-edit-team="${esc(t.id)}">Editar</button> <button class="btn" data-delete-team="${esc(t.id)}">Eliminar</button></div></div><h2>${esc(t.name)}</h2><p class="muted" style="font-size:12px">${esc(t.description||'Sin descripción')}</p><div class="team-members">${members.map(p=>`<div class="team-member"><span class="mini-avatar">${esc(initials(p.name))}</span><span>${esc(p.name)}<small>${esc(p.role||'Integrante')}</small></span></div>`).join('')||'<span class="muted tiny">Aún no hay personas asignadas a este equipo.</span>'}</div></article>`}).join(''):'<div class="card empty">Todavía no hay equipos. Crea uno y asígnale personas registradas.</div>';
+ document.querySelectorAll('[data-edit-team]').forEach(b=>b.onclick=()=>openForm('team',b.dataset.editTeam));
+ document.querySelectorAll('[data-delete-team]').forEach(b=>b.onclick=()=>{if(confirm('¿Eliminar este equipo de trabajo?')){data.teams=data.teams.filter(t=>t.id!==b.dataset.deleteTeam);save()}});
 }
 function renderPeople(){
  $('peopleTable').innerHTML=data.people.length?data.people.map(p=>`<tr><td><div class="person"><span class="mini-avatar">${esc(initials(p.name))}</span><strong>${esc(p.name)}</strong></div></td><td>${esc(p.role)}</td><td><button class="btn" data-edit-person-simple="${p.id}">Editar</button> <button class="btn" data-delete-person-simple="${p.id}">Eliminar</button></td></tr>`).join(''):'<tr><td colspan="3" class="empty">Aún no hay personas registradas.</td></tr>';
  document.querySelectorAll('[data-edit-person-simple]').forEach(b=>b.onclick=()=>openForm('person',b.dataset.editPersonSimple));
- document.querySelectorAll('[data-delete-person-simple]').forEach(b=>b.onclick=()=>{const id=b.dataset.deletePersonSimple;if(data.tasks.some(t=>t.assignee===id)||data.projects.some(p=>p.owner===id)||data.milestones.some(m=>m.owner===id)){toast('Esta persona tiene elementos asignados. Reasígnalos antes de eliminarla.');return}if(confirm('¿Eliminar esta persona?')){data.people=data.people.filter(p=>p.id!==id);save()}});
+ document.querySelectorAll('[data-delete-person-simple]').forEach(b=>b.onclick=()=>{const id=b.dataset.deletePersonSimple;if(data.tasks.some(t=>t.assignee===id)||data.projects.some(p=>p.owner===id)||data.milestones.some(m=>m.owner===id)){toast('Esta persona tiene elementos asignados. Reasígnalos antes de eliminarla.');return}if(confirm('¿Eliminar esta persona?')){data.people=data.people.filter(p=>p.id!==id);data.teams.forEach(t=>t.members=(t.members||[]).filter(memberId=>memberId!==id));save()}});
 }
 function renderReports(){
  let total=data.tasks.length,done=data.tasks.filter(t=>t.status==='Completada').length,late=data.tasks.filter(t=>t.status!=='Completada'&&t.due&&t.due<iso(today)).length,high=data.tasks.filter(t=>t.priority==='Alta'||t.priority==='Crítica').length;
@@ -346,15 +349,17 @@ const fields={
  project:[['name','Nombre del proyecto','text',true],['description','Descripción','textarea',false],['owner','Responsable','person',true],['status','Estado','select:Activo|Planificación|En riesgo|Completado',true],['start','Fecha de inicio','date',true],['end','Fecha objetivo','date',true]],
  task:[['title','Nombre de la tarea','text',true],['projectId','Proyecto (opcional)','project',false],['assignee','Responsable','person',true],['priority','Prioridad','select:Baja|Media|Alta|Crítica',true],['status','Estado','select:Pendiente|En curso|En revisión|Completada',true],['start','Fecha de inicio','date',true],['due','Fecha límite','date',true],['estimate','Esfuerzo estimado (horas)','number',false],['description','Descripción / criterios de aceptación','textarea',false]],
  milestone:[['title','Nombre del hito','text',true],['projectId','Proyecto','project',true],['date','Fecha objetivo','date',true],['owner','Responsable','person',true],['status','Estado','select:Pendiente|En curso|En riesgo|Completado',true]],
- person:[['name','Nombre completo','text',true],['role','Cargo','text',true]]
+ person:[['name','Nombre completo','text',true],['role','Cargo','text',true]],
+ team:[['name','Nombre del equipo','text',true],['description','Descripción','textarea',false],['members','Personas integrantes','multiPerson',false]]
 };
-function optionsFor(kind){if(kind==='person')return data.people.map(p=>[p.id,p.name]);if(kind==='project')return data.projects.map(p=>[p.id,p.name]);return []}
+function optionsFor(kind){if(kind==='person'||kind==='multiPerson')return data.people.map(p=>[p.id,p.name]);if(kind==='project')return data.projects.map(p=>[p.id,p.name]);return []}
 function openForm(type,id=null){
- formType=type;editing=id;let record=id?(type==='project'?project(id):type==='task'?data.tasks.find(t=>t.id===id):type==='milestone'?data.milestones.find(m=>m.id===id):person(id)):null;
- $('modalTitle').textContent=(id?'Editar ':'Nuevo ')+({project:'proyecto',task:'tarea',milestone:'hito',person:'integrante'}[type]);
+ formType=type;editing=id;let record=id?(type==='project'?project(id):type==='task'?data.tasks.find(t=>t.id===id):type==='milestone'?data.milestones.find(m=>m.id===id):type==='team'?data.teams.find(t=>t.id===id):person(id)):null;
+$('modalTitle').textContent=(id?'Editar ':'Nuevo ')+({project:'proyecto',task:'tarea',milestone:'hito',person:'integrante',team:'equipo de trabajo'}[type]);
  $('formFields').innerHTML=fields[type].map(([key,label,kind,required])=>{let value=record?.[key]??(key==='status'?(type==='project'?'Activo':type==='task'?'Pendiente':'Pendiente'):key==='priority'?'Media':key==='start'?iso(today):key==='end'||key==='due'||key==='date'?addDays(7):key==='estimate'?'' :'');
  let input='';if(kind==='textarea')input=`<textarea id="f-${key}" ${required?'required':''}>${esc(value)}</textarea>`;
  else if(kind.startsWith('select:'))input=`<select id="f-${key}" ${required?'required':''}>${kind.slice(7).split('|').map(s=>`<option ${s===value?'selected':''}>${s}</option>`).join('')}</select>`;
+ else if(kind==='multiPerson'){const ids=Array.isArray(value)?value:[];input=`<div class="team-picker">${data.people.map(p=>`<label class="team-picker-option"><input type="checkbox" name="f-${key}" value="${esc(p.id)}" ${ids.includes(p.id)?'checked':''}><span>${esc(p.name)}<small>${esc(p.role||'Integrante')}</small></span></label>`).join('')||'<span class="muted tiny">Primero agrega personas en la pestaña Personas.</span>'}</div>`}
  else if(kind==='person'||kind==='project'){let opts=optionsFor(kind),placeholder=kind==='project'&&key==='projectId'?'Sin proyecto':'Seleccionar…';input=`<select id="f-${key}" ${required?'required':''}><option value="">${placeholder}</option>${opts.map(([v,l])=>`<option value="${v}" ${v===value?'selected':''}>${esc(l)}</option>`).join('')}</select>`}
  else input=`<input id="f-${key}" type="${kind}" value="${esc(value)}" ${required?'required':''} ${kind==='number'?'min="0"':''}>`;
  return `<div class="form-group ${kind==='textarea'?'full':''}"><label for="f-${key}">${label}${required?' *':''}</label>${input}</div>`}).join('');
@@ -362,13 +367,14 @@ function openForm(type,id=null){
 }
 function closeForm(){$('modalBackdrop').classList.remove('open');editing=null;formType=null}
 $('modalClose').onclick=closeForm;$('modalCancel').onclick=closeForm;$('modalBackdrop').addEventListener('click',e=>{if(e.target===$('modalBackdrop'))closeForm()});
-$('entityForm').onsubmit=e=>{e.preventDefault();let submittedType=formType;let obj={};fields[formType].forEach(([key,label,kind])=>{let el=$('f-'+key);obj[key]=kind==='number'?(el.value?Number(el.value):0):el.value});
+$('entityForm').onsubmit=e=>{e.preventDefault();let submittedType=formType;let obj={};fields[formType].forEach(([key,label,kind])=>{let el=$('f-'+key);obj[key]=kind==='number'?(el.value?Number(el.value):0):kind==='multiPerson'?Array.from(document.querySelectorAll(`input[name="f-${key}"]:checked`),option=>option.value):el.value});
  if(formType==='project'&&obj.end<obj.start){toast('La fecha objetivo debe ser igual o posterior al inicio');return}
  if(formType==='task'&&obj.due<obj.start){toast('La fecha límite debe ser igual o posterior al inicio');return}
- if(editing){let arr=formType==='project'?data.projects:formType==='task'?data.tasks:formType==='milestone'?data.milestones:data.people;let old=arr.find(x=>x.id===editing);Object.assign(old,obj)}
+ if(editing){let arr=formType==='project'?data.projects:formType==='task'?data.tasks:formType==='milestone'?data.milestones:formType==='team'?data.teams:data.people;let old=arr.find(x=>x.id===editing);Object.assign(old,obj)}
  else if(formType==='project')data.projects.push({id:uid('PR'),...obj,color:'purple'});
  else if(formType==='task')data.tasks.push({id:uid('T'),...obj});
  else if(formType==='milestone')data.milestones.push({id:uid('M'),...obj});
+ else if(formType==='team')data.teams.push({id:uid('EQ'),...obj});
  else data.people.push({id:uid('P'),...obj});
  if(submittedType==='task'&&currentView==='calendar'&&obj.due){const d=new Date(obj.due+'T12:00:00');calendarCursor=new Date(d.getFullYear(),d.getMonth(),1);calendarFocusDate=obj.due}
  closeForm();save();toast('Cambios guardados correctamente');if(submittedType==='task'&&obj.due)showScheduleAlert(obj.title,obj.due,'task');else if(submittedType==='milestone'&&obj.date)showScheduleAlert(obj.title,obj.date,'milestone');
@@ -376,7 +382,7 @@ $('entityForm').onsubmit=e=>{e.preventDefault();let submittedType=formType;let o
 function deleteProject(id){if(data.tasks.some(t=>t.projectId===id)||data.milestones.some(m=>m.projectId===id)){toast('El proyecto tiene tareas o hitos vinculados. Elimínalos o reasígnalos primero.');return}if(confirm('¿Eliminar este proyecto?')){data.projects=data.projects.filter(p=>p.id!==id);save();toast('Proyecto eliminado')}}
 $('newProjectBtn').onclick=$('newProjectDash').onclick=()=>openForm('project');
 $('newTaskBtn').onclick=$('newTaskDash').onclick=$('topNewTask').onclick=$('kanbanNew').onclick=$('ganttNew').onclick=()=>openForm('task');
-$('newMilestoneBtn').onclick=()=>openForm('milestone');$('newPersonBtn').onclick=$('addPersonBtn').onclick=()=>openForm('person');
+$('newMilestoneBtn').onclick=()=>openForm('milestone');$('newTeamBtn').onclick=()=>openForm('team');$('addPersonBtn').onclick=()=>openForm('person');
 ['projectSearch','projectStatusFilter'].forEach(id=>$(id).addEventListener('input',renderProjects));
 ['taskSearch','taskProjectFilter','taskStatusFilter'].forEach(id=>$(id).addEventListener('input',renderTasks));
 $('kanbanProjectFilter').onchange=renderKanban;$('ganttProjectFilter').onchange=renderGantt;
